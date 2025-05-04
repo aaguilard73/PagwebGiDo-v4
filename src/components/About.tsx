@@ -35,29 +35,35 @@ const About = () => {
           variants={variants}
           className="grid md:grid-cols-2 gap-8 items-center"
         >
+          {/* Texto */}
           <motion.div variants={itemVariants} className="order-2 md:order-1">
-            <h2>El latido de un taller, el pulso de una visión</h2>
-            <p className="text-lg">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">El latido de un taller, el pulso de una visión</h2>
+            <p className="text-lg text-justify">
               Lo que comenzó como un experimento entre planos y maquetas se transformó en un santuario de creatividad: un taller donde cada herramienta resuena como un martillo de arquitecto y cada joya brota de un boceto que desafía los límites.
             </p>
-            <p className="text-lg mb-6">
+            <p className="text-lg text-justify mb-6">
               Aquí, la plata late al ritmo de la lima y el pulido: utilizamos la proporción áurea, el juego del vacío y el lleno, y materiales como perlas Biwa, arcilla de Oaxaca y hasta meteorito, para construir miniestructuras que dialogan con tu propio espacio interior.
             </p>
             <a href="/nuestra-historia" className="btn btn-outline">
               Conoce Nuestra Trayectoria
             </a>
           </motion.div>
-          
+
+          {/* Video */}
           <motion.div variants={itemVariants} className="order-1 md:order-2">
             <div className="relative overflow-hidden rounded-lg shadow-xl">
-              <img 
-                src="https://images.pexels.com/photos/5370631/pexels-photo-5370631.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" 
-                alt="Taller Gi.Do" 
-                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700 ease-in-out"
+              <video
+                className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700 ease-in-out rounded-lg"
+                src="/images/videoabout.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
               />
               <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary/10 to-transparent opacity-70"></div>
             </div>
           </motion.div>
+          
         </motion.div>
       </div>
     </section>
@@ -65,3 +71,5 @@ const About = () => {
 };
 
 export default About;
+
+ 
