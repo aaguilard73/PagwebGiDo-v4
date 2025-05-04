@@ -1,6 +1,6 @@
 import React from 'react';
 import { useInView } from 'react-intersection-observer';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useTransform, useScroll } from 'framer-motion';
 
 const About = () => {
   const [ref, inView] = useInView({
@@ -10,10 +10,11 @@ const About = () => {
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], ["0px", "30px"]);
+  // Zoom lento aplicado al video
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
 
   const variants = {
     hidden: { opacity: 0, y: 20 },
@@ -21,8 +22,7 @@ const About = () => {
       opacity: 1, 
       y: 0,
       transition: { 
-        duration: 0.8,
-        ease: 'easeOut',
+        duration: 0.6,
         staggerChildren: 0.2
       }
     }
@@ -41,12 +41,12 @@ const About = () => {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={variants}
-          className="grid md:grid-cols-2 gap-10 items-center"
+          className="grid md:grid-cols-2 gap-8 items-center"
         >
-          {/* Texto Justificado */}
+          {/* Bloque de texto */}
           <motion.div variants={itemVariants} className="order-2 md:order-1 text-justify">
             <h2>El latido de un taller, el pulso de una visión</h2>
-            <p className="text-lg mb-4">
+            <p className="text-lg">
               Lo que comenzó como un experimento entre planos y maquetas se transformó en un santuario de creatividad: un taller donde cada herramienta resuena como un martillo de arquitecto y cada joya brota de un boceto que desafía los límites.
             </p>
             <p className="text-lg mb-6">
@@ -57,14 +57,11 @@ const About = () => {
             </a>
           </motion.div>
 
-          {/* Video Cinematográfico con Parallax Sutil */}
-          <motion.div 
-            variants={itemVariants} 
-            className="order-1 md:order-2"
-          >
+          {/* Contenedor de video con fade-in + zoom lento */}
+          <motion.div variants={itemVariants} className="order-1 md:order-2">
             <motion.div
-              className="relative overflow-hidden rounded-xl shadow-2xl"
-              style={{ y }}
+              className="relative overflow-hidden rounded-xl shadow-2xl max-h-[500px] w-full"
+              style={{ scale }}
             >
               <motion.video
                 src="/images/videoabout.mp4"
@@ -72,16 +69,15 @@ const About = () => {
                 loop
                 muted
                 playsInline
-                className="w-full h-auto object-cover"
+                className="w-full h-full object-cover"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: inView ? 1 : 0 }}
                 transition={{ duration: 1.5, ease: 'easeOut' }}
               />
-              {/* Opcional: capa sutil para cinematic look */}
-              <div className="absolute inset-0 bg-black/10 rounded-xl"></div>
+              {/* Capa sutil de overlay */}
+              <div className="absolute inset-0 bg-black/10 rounded-xl pointer-events-none"></div>
             </motion.div>
           </motion.div>
-
         </motion.div>
       </div>
     </section>
