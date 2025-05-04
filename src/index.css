@@ -1,0 +1,124 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: 139 0 0; /* #8B0000 */
+    --color-accent: 201 168 122; /* #C9A87A */
+    --color-light: 255 255 255; /* #FFFFFF */
+    --color-dark: 51 51 51;     /* #333333 */
+    --color-bg: 242 242 242;    /* #F2F2F2 */
+  }
+
+  html {
+    scroll-behavior: smooth;
+    @apply scroll-pt-20;
+  }
+
+  body {
+    @apply font-sans text-dark bg-bg leading-relaxed;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif leading-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl font-bold mb-6;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl font-bold mb-4;
+  }
+
+  h3 {
+    @apply text-xl md:text-2xl font-semibold mb-2;
+  }
+
+  p {
+    @apply mb-4;
+  }
+
+  .container {
+    @apply max-w-7xl mx-auto px-4 md:px-6;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-block px-6 py-3 rounded text-sm font-semibold uppercase tracking-wide transition-all duration-300;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary/90;
+  }
+
+  .btn-secondary {
+    @apply bg-accent text-white hover:bg-accent/90;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  }
+
+  .skip-link {
+    @apply fixed top-0 left-0 -translate-y-full bg-primary text-white px-4 py-2 z-50 focus:translate-y-0 transition-transform;
+  }
+
+  /* Carrusel de íconos */
+  .icon-wrapper {
+    @apply inline-flex items-center gap-3 bg-white/90 backdrop-blur-md rounded-full p-3 shadow-lg transition-transform duration-300 ease-in-out;
+  }
+
+  .icon-wrapper:hover {
+    @apply scale-110;
+  }
+
+  .icon-text {
+    @apply text-white text-sm whitespace-nowrap drop-shadow-sm;
+  }
+}
+
+@layer utilities {
+  .text-shadow {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .text-shadow-lg {
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Carrusel horizontal continuo */
+  @keyframes slide {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .animate-slide {
+    animation: slide 40s linear infinite;
+  }
+}
+
+/* Motion-safe */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
