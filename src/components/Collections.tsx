@@ -13,19 +13,22 @@ interface Collection {
 
 // Aquí puedes mover este array a src/data/collections.ts
 const collections: Collection[] = [
-  { id: 'dinamika',      name: 'Dinámika',      description: 'Dinámika: audacia, sobriedad…',            image: 'dinamika.png' },
-  { id: 'arketipica',    name: 'Arketípika',    description: 'Vibración, frecuencia y color…',          image: 'arketipica.png' },
-  { id: 'luminika',      name: 'Lumínika',      description: 'Transparencias arquitectónicas…',         image: 'luminika.png' },
-  { id: 'kromatika',     name: 'Kromátika',     description: 'Color como lenguaje: cada gema…',          image: 'kromatika.png' },
-  { id: 'jardinsEtFleurs', name: 'Jardins et Fleurs 2024', description: 'La fusión de la sutil belleza…', image: 'jardinsetFleurs.png' },
-  { id: 'antropika',     name: 'Antrópika',     description: 'Antrópika representa la esencia…',         image: 'antropika.png' },
+  { id: 'dinamika',       name: 'Dinámika',       description: 'Dinámika: audacia, sobriedad…',             image: 'dinamika.png' },
+  { id: 'arketipica',     name: 'Arketípika',     description: 'Vibración, frecuencia y color…',           image: 'arketipica.png' },
+  { id: 'luminika',       name: 'Lumínika',       description: 'Transparencias arquitectónicas…',          image: 'luminika.png' },
+  { id: 'kromatika',      name: 'Kromátika',      description: 'Color como lenguaje: cada gema…',           image: 'kromatika.png' },
+  { id: 'jardinsEtFleurs',name: 'Jardins et Fleurs 2024', description: 'La fusión de la sutil belleza…', image: 'jardinsetFleurs.png' },
+  { id: 'antropika',      name: 'Antrópika',      description: 'Antrópika representa la esencia…',          image: 'antropika.png' },
 ];
 
 const containerVariants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
 };
-const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0 }
+};
 
 const Collections: React.FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -63,7 +66,8 @@ const Collections: React.FC = () => {
             <motion.div
               key={c.id}
               variants={itemVariants}
-              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+              className="bg-white rounded-lg overflow-hidden border-2 border-red-700 shadow-lg 
+                         hover:shadow-2xl hover:scale-105 transform transition-all duration-300"
             >
               {/* Imagen completa sin recortes */}
               <div className="relative w-full pb-[75%] overflow-hidden">
@@ -91,6 +95,5 @@ const Collections: React.FC = () => {
 };
 
 export default Collections;
-
 
 
