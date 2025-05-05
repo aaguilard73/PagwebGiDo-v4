@@ -1,117 +1,48 @@
-// src/components/FeaturedProducts.tsx
+ // src/data/products.ts
 
-import React, { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
-import { motion } from 'framer-motion';
-import ProductCard from './ProductCard';
+import { Product } from '../types';
 
-interface SimpleProduct {
-  id: string;
-  name: string;
-  image: string;
-}
-
-// Aquí definimos las ocho piezas con la ruta exacta a tus PNG en public/images
-const products: SimpleProduct[] = [
-  { id: 'producto1', name: 'Producto 1', image: '/images/producto1.png' },
-  { id: 'producto2', name: 'Producto 2', image: '/images/producto2.png' },
-  { id: 'producto3', name: 'Producto 3', image: '/images/producto3.png' },
-  { id: 'producto4', name: 'Producto 4', image: '/images/producto4.png' },
-  { id: 'producto5', name: 'Producto 5', image: '/images/producto5.png' },
-  { id: 'producto6', name: 'Producto 6', image: '/images/producto6.png' },
-  { id: 'producto7', name: 'Producto 7', image: '/images/producto7.png' },
-  { id: 'producto8', name: 'Producto 8', image: '/images/producto8.png' },
+export const products: Product[] = [
+  {
+    id: 'producto1',
+    name: 'Producto 1',
+    image: '/images/producto1.png',
+  },
+  {
+    id: 'producto2',
+    name: 'Producto 2',
+    image: '/images/producto2.png',
+  },
+  {
+    id: 'producto3',
+    name: 'Producto 3',
+    image: '/images/producto3.png',
+  },
+  {
+    id: 'producto4',
+    name: 'Producto 4',
+    image: '/images/producto4.png',
+  },
+  {
+    id: 'producto5',
+    name: 'Producto 5',
+    image: '/images/producto5.png',
+  },
+  {
+    id: 'producto6',
+    name: 'Producto 6',
+    image: '/images/producto6.png',
+  },
+  {
+    id: 'producto7',
+    name: 'Producto 7',
+    image: '/images/producto7.png',
+  },
+  {
+    id: 'producto8',
+    name: 'Producto 8',
+    image: '/images/producto8.png',
+  },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-};
-
-const FeaturedProducts: React.FC = () => {
-  const [visibleProducts, setVisibleProducts] = useState(products.slice(0, 4));
-  const [loadingMore, setLoadingMore]         = useState(false);
-  const [canLoadMore, setCanLoadMore]         = useState(products.length > 4);
-
-  const [sectionRef, sectionInView]   = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [sentinelRef, sentinelInView] = useInView({ threshold: 0, rootMargin: '200px 0px' });
-
-  // Infinite scroll: carga 4 más cuando el sentinel es visible
-  useEffect(() => {
-    if (sentinelInView && !loadingMore && canLoadMore) {
-      setLoadingMore(true);
-      setTimeout(() => {
-        const next = products.slice(
-          visibleProducts.length,
-          visibleProducts.length + 4
-        );
-        setVisibleProducts(prev => [...prev, ...next]);
-        setLoadingMore(false);
-        if (visibleProducts.length + next.length >= products.length) {
-          setCanLoadMore(false);
-        }
-      }, 800);
-    }
-  }, [sentinelInView, loadingMore, visibleProducts, canLoadMore]);
-
-  return (
-    <section
-      id="destacados"
-      ref={sectionRef}
-      className="section-padding bg-white"
-    >
-      <div className="container mx-auto">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl font-semibold">Piezas Imperdibles</h2>
-          <p className="text-lg max-w-3xl mx-auto text-gray-700">
-            Estas joyas son un epítome de nuestra obra: experimentación y técnica, materiales nobles y formas que acarician la arquitectura de tu propio estilo.
-          </p>
-        </motion.div>
-
-        {/* Grid de productos */}
-        <motion.div
-          initial="hidden"
-          animate={sectionInView ? 'visible' : 'hidden'}
-          variants={containerVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {visibleProducts.map((p) => (
-            <motion.div key={p.id} variants={itemVariants}>
-              <ProductCard
-                product={{
-                  id: p.id,
-                  name: p.name,
-                  // ProductCard debe usar esta prop `image` para el PNG
-                  image: p.image
-                }}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Loading spinner */}
-        {loadingMore && (
-          <div className="flex justify-center mt-8">
-            <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
-          </div>
-        )}
-
-        {/* Sentinel para infinite scroll */}
-        {canLoadMore && <div ref={sentinelRef} className="h-4 mt-8" aria-hidden="true" />}
-      </div>
-    </section>
-  );
-};
-
-export default FeaturedProducts;
+export default products;
