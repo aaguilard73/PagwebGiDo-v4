@@ -1,22 +1,21 @@
 // src/components/Collections.tsx
 
-import React from 'react';
-import { motion } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
-import collections from '../data/collections';
+import React from 'react'
+import { motion } from 'framer-motion'
+import { useInView } from 'react-intersection-observer'
+import collections from '../data/collections'
 
 const containerVariants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
-};
-
+}
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
-};
+}
 
 const Collections: React.FC = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
     <section
@@ -24,8 +23,8 @@ const Collections: React.FC = () => {
       ref={ref}
       className="section-padding bg-gradient-to-b from-gray-300 via-gray-200 to-white"
     >
-      <div className="container relative z-10 mx-auto">
-        {/* Título y subtítulo */}
+      <div className="container mx-auto">
+        {/* Título */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -40,7 +39,7 @@ const Collections: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Grid responsivo */}
+        {/* Grid de cards */}
         <motion.div
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -52,24 +51,25 @@ const Collections: React.FC = () => {
               key={c.id}
               variants={itemVariants}
               className="relative"
-              style={{ perspective: '1000px' }}
+              style={{ perspective: 1000 }}
             >
+              {/* Semi-marco rojo y giro 3D */}
               <motion.div
                 whileHover={{ rotateY: 180 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                className="relative w-full pb-[75%] bg-white rounded-lg 
+                className="relative w-full pb-[75%] bg-white rounded-lg
                            border-t-4 border-l-4 border-[#8B0000]
                            overflow-hidden shadow-lg hover:shadow-2xl
                            transition-shadow duration-300"
                 style={{ transformStyle: 'preserve-3d' }}
               >
-                {/* Frontal: imagen */}
+                {/* Frente: imagen */}
                 <div
                   className="absolute inset-0"
                   style={{ backfaceVisibility: 'hidden' }}
                 >
                   <img
-                    src={`/images/${c.image}`}
+                    src={c.image}
                     alt={c.name}
                     className="w-full h-full object-contain"
                   />
@@ -93,8 +93,7 @@ const Collections: React.FC = () => {
         </motion.div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Collections;
-
+export default Collections
