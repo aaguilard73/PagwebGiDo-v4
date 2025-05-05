@@ -1,4 +1,4 @@
-// src/components/Collections.tsx
+ // src/components/Collections.tsx
 
 import React from 'react';
 import { motion } from 'framer-motion';
@@ -11,7 +11,7 @@ interface Collection {
   image: string;
 }
 
-// Datos completos con sus descripciones extraídas del PDF
+// Datos con descripciones homogéneas y completas
 const collections: Collection[] = [
   {
     id: 'dinamika',
@@ -24,35 +24,35 @@ const collections: Collection[] = [
     id: 'arketipica',
     name: 'Arketípika',
     description:
-      'Vibración, frecuencia y color: la flexibilidad y luminosidad de la plata, la fortaleza del acero y la noble belleza brillo y color de la perla se conjugan como una síntesis universal de la eterna tejedora que construye eternidades: la mujer.',
+      'Arketípika: vibración, frecuencia y color; la flexibilidad y luminosidad de la plata, la fortaleza del acero y la nobleza de la perla se conjugan como una síntesis universal de la eterna tejedora que construye eternidades.',
     image: 'arketipica.png'
   },
   {
     id: 'luminika',
     name: 'Lumínika',
     description:
-      'Transparencias arquitectónicas: cristales pulidos que refractan tus recuerdos más luminosos.',
+      'Lumínika: transparencias arquitectónicas; cristales pulidos que refractan tus recuerdos más luminosos y revelan nuevas perspectivas de luz y forma, fusionando simplicidad y sofisticación en cada pieza.',
     image: 'luminika.png'
   },
   {
     id: 'kromatika',
     name: 'Kromátika',
     description:
-      'Color como lenguaje: cada gema encierra un sentimiento que vibra con tu esencia.',
+      'Kromátika: el color como lenguaje; cada gema encierra un sentimiento que vibra con tu esencia, jugando con matices audaces y sutiles en un diálogo cromático que trasciende lo efímero.',
     image: 'kromatika.png'
   },
   {
     id: 'jardinsEtFleurs',
     name: 'Jardins et Fleurs 2024',
     description:
-      'La fusión de la sutil belleza de las flores con el encanto del glamour francés. Contrastes únicos y plata minimalista para resaltar tu elegancia en cualquier ocasión.',
+      'Jardins et Fleurs 2024: la fusión de la sutil belleza floral con el encanto del glamour francés, donde pétalos y estructuras metálicas se entrelazan en un ballet de formas y elegancia atemporal.',
     image: 'jardinsetFleurs.png'
   },
   {
     id: 'antropika',
     name: 'Antrópika',
     description:
-      'Antrópika representa la esencia de la masculinidad moderna: audacia, fuerza y vanguardia en joyería que refleja confianza y sofisticación.',
+      'Antrópika: la esencia de la masculinidad moderna; audacia, fuerza y vanguardia en joyería que dialoga con líneas arquitectónicas, ofreciendo una estética que fusiona lo sobrio con lo disruptivo.',
     image: 'antropika.png'
   }
 ];
@@ -75,7 +75,7 @@ const Collections: React.FC = () => {
       ref={ref}
       className="section-padding bg-gradient-to-b from-gray-300 via-gray-200 to-white"
     >
-      <div className="container">
+      <div className="container mx-auto">
         {/* Título */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -102,16 +102,14 @@ const Collections: React.FC = () => {
             <motion.div
               key={c.id}
               variants={itemVariants}
-              className="bg-white rounded-lg overflow-hidden border-2 border-red-700 shadow-lg 
-                         hover:shadow-2xl transition-shadow duration-300"
+              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
             >
-              {/* Imagen con efecto hover de zoom */}
+              {/* Imagen con ligero zoom al hover */}
               <div className="relative w-full pb-[75%] overflow-hidden">
                 <img
                   src={`/images/${c.image}`}
                   alt={c.name}
-                  className="absolute inset-0 w-full h-full object-contain transform 
-                             transition-transform duration-300 hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-contain transform transition-transform duration-300 hover:scale-105"
                 />
               </div>
               {/* Texto justificado */}
