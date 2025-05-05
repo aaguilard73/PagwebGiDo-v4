@@ -1,11 +1,31 @@
-// src/components/Collections.tsx
+ // src/components/Collections.tsx
 
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-// Asegúrate de que este import apunte a tu archivo con rutas completas:
-// image: '/images/dinamika.png', etc.
-import collections from '../data/collections';
+
+interface Collection {
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+}
+
+// Aquí puedes mover este array a src/data/collections.ts
+const collections: Collection[] = [
+  { id: 'dinamika',      name: 'Dinámika',      description: 'Dinámika: audacia, sobriedad…',            image: 'dinamika.png' },
+  { id: 'arketipica',    name: 'Arketípika',    description: 'Vibración, frecuencia y color…',          image: 'arketipica.png' },
+  { id: 'luminika',      name: 'Lumínika',      description: 'Transparencias arquitectónicas…',         image: 'luminika.png' },
+  { id: 'kromatika',     name: 'Kromátika',     description: 'Color como lenguaje: cada gema…',          image: 'kromatika.png' },
+  { id: 'jardinsEtFleurs', name: 'Jardins et Fleurs 2024', description: 'La fusión de la sutil belleza…', image: 'jardinsetFleurs.png' },
+  { id: 'antropika',     name: 'Antrópika',     description: 'Antrópika representa la esencia…',         image: 'antropika.png' },
+];
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
+};
+const itemVariants = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
 const Collections: React.FC = () => {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
@@ -14,12 +34,9 @@ const Collections: React.FC = () => {
     <section
       id="colecciones"
       ref={ref}
-      className="relative section-padding overflow-hidden"
+      className="section-padding bg-gradient-to-b from-gray-300 via-gray-200 to-white"
     >
-      {/* Fondo degradado */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-200 to-gray-50 pointer-events-none" />
-
-      <div className="relative z-10 container mx-auto">
+      <div className="container">
         {/* Título */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -36,35 +53,38 @@ const Collections: React.FC = () => {
         </motion.div>
 
         {/* Grid responsivo */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <motion.div
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          variants={containerVariants}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
           {collections.map((c) => (
-            <div
+            <motion.div
               key={c.id}
-              className="tilt-container max-w-xs mx-auto"
+              variants={itemVariants}
+              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
             >
-              <div className="tilt bg-white rounded-lg border-2 border-red-700 overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-200">
-                {/* Imagen */}
-                <div className="relative w-full pb-[75%] overflow-hidden">
-                  <img
-                    src={c.image}
-                    alt={c.name}
-                    className="absolute inset-0 w-full h-full object-contain"
-                  />
-                </div>
-
-                {/* Texto */}
-                <div className="p-6">
-                  <h3 className="text-2xl font-semibold text-gray-900 mb-2">
-                    {c.name}
-                  </h3>
-                  <p className="text-gray-700 text-justify leading-relaxed">
-                    {c.description}
-                  </p>
-                </div>
+              {/* Imagen completa sin recortes */}
+              <div className="relative w-full pb-[75%] overflow-hidden">
+                <img
+                  src={`/images/${c.image}`}
+                  alt={c.name}
+                  className="absolute inset-0 w-full h-full object-contain"
+                />
               </div>
-            </div>
+              {/* Texto justificado */}
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+                  {c.name}
+                </h3>
+                <p className="text-gray-700 text-justify leading-relaxed">
+                  {c.description}
+                </p>
+              </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
