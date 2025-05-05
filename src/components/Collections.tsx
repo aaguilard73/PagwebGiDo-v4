@@ -3,13 +3,12 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+// Asegúrate de que este import apunte a tu archivo con rutas completas:
+// image: '/images/dinamika.png', etc.
 import collections from '../data/collections';
 
 const Collections: React.FC = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
     <section
@@ -36,14 +35,14 @@ const Collections: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Grid */}
+        {/* Grid responsivo */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {collections.map((c) => (
             <div
               key={c.id}
               className="tilt-container max-w-xs mx-auto"
             >
-              <div className="tilt bg-white rounded-lg border-2 border-red-700 overflow-hidden shadow-lg hover:shadow-2xl">
+              <div className="tilt bg-white rounded-lg border-2 border-red-700 overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-200">
                 {/* Imagen */}
                 <div className="relative w-full pb-[75%] overflow-hidden">
                   <img
@@ -52,6 +51,7 @@ const Collections: React.FC = () => {
                     className="absolute inset-0 w-full h-full object-contain"
                   />
                 </div>
+
                 {/* Texto */}
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-gray-900 mb-2">
