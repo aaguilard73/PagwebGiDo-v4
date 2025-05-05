@@ -11,14 +11,50 @@ interface Collection {
   image: string;
 }
 
-// Aquí puedes mover este array a src/data/collections.ts
+// Datos completos con sus descripciones extraídas del PDF
 const collections: Collection[] = [
-  { id: 'dinamika',       name: 'Dinámika',       description: 'Dinámika: audacia, sobriedad…',             image: 'dinamika.png' },
-  { id: 'arketipica',     name: 'Arketípika',     description: 'Vibración, frecuencia y color…',           image: 'arketipica.png' },
-  { id: 'luminika',       name: 'Lumínika',       description: 'Transparencias arquitectónicas…',          image: 'luminika.png' },
-  { id: 'kromatika',      name: 'Kromátika',      description: 'Color como lenguaje: cada gema…',           image: 'kromatika.png' },
-  { id: 'jardinsEtFleurs',name: 'Jardins et Fleurs 2024', description: 'La fusión de la sutil belleza…', image: 'jardinsetFleurs.png' },
-  { id: 'antropika',      name: 'Antrópika',      description: 'Antrópika representa la esencia…',          image: 'antropika.png' },
+  {
+    id: 'dinamika',
+    name: 'Dinámika',
+    description:
+      'Dinámika: audacia, sobriedad, dulzura, fuerza, progresismo, dinamismo y vanguardia se fusionan en modulaciones de ritmo, proporción y jerarquía, imprimendo armonía y un carácter propio a cada creación, exaltando la identidad única de quien la porta.',
+    image: 'dinamika.png'
+  },
+  {
+    id: 'arketipica',
+    name: 'Arketípika',
+    description:
+      'Vibración, frecuencia y color: la flexibilidad y luminosidad de la plata, la fortaleza del acero y la noble belleza brillo y color de la perla se conjugan como una síntesis universal de la eterna tejedora que construye eternidades: la mujer.',
+    image: 'arketipica.png'
+  },
+  {
+    id: 'luminika',
+    name: 'Lumínika',
+    description:
+      'Transparencias arquitectónicas: cristales pulidos que refractan tus recuerdos más luminosos.',
+    image: 'luminika.png'
+  },
+  {
+    id: 'kromatika',
+    name: 'Kromátika',
+    description:
+      'Color como lenguaje: cada gema encierra un sentimiento que vibra con tu esencia.',
+    image: 'kromatika.png'
+  },
+  {
+    id: 'jardinsEtFleurs',
+    name: 'Jardins et Fleurs 2024',
+    description:
+      'La fusión de la sutil belleza de las flores con el encanto del glamour francés. Contrastes únicos y plata minimalista para resaltar tu elegancia en cualquier ocasión.',
+    image: 'jardinsetFleurs.png'
+  },
+  {
+    id: 'antropika',
+    name: 'Antrópika',
+    description:
+      'Antrópika representa la esencia de la masculinidad moderna: audacia, fuerza y vanguardia en joyería que refleja confianza y sofisticación.',
+    image: 'antropika.png'
+  }
 ];
 
 const containerVariants = {
@@ -66,14 +102,16 @@ const Collections: React.FC = () => {
             <motion.div
               key={c.id}
               variants={itemVariants}
-              className="group bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+              className="bg-white rounded-lg overflow-hidden border-2 border-red-700 shadow-lg 
+                         hover:shadow-2xl transition-shadow duration-300"
             >
-              {/* Imagen completa sin recortes, con zoom al hover */}
+              {/* Imagen con efecto hover de zoom */}
               <div className="relative w-full pb-[75%] overflow-hidden">
                 <img
                   src={`/images/${c.image}`}
                   alt={c.name}
-                  className="absolute inset-0 w-full h-full object-contain transform transition-transform duration-300 group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-contain transform 
+                             transition-transform duration-300 hover:scale-105"
                 />
               </div>
               {/* Texto justificado */}
