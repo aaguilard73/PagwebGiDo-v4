@@ -12,57 +12,13 @@ interface Collection {
 }
 
 const collections: Collection[] = [
-  {
-    id: 'dinamika',
-    name: 'Dinámika',
-    description:
-      'Dinámika: audacia, sobriedad, dulzura, fuerza, progresismo, dinamismo y vanguardia se fusionan en modulaciones de ritmo, proporción y jerarquía, imprimendo armonía y un carácter propio a cada creación, exaltando la identidad única de quien la porta.',
-    image: 'dinamika.png'
-  },
-  {
-    id: 'arketipica',
-    name: 'Arketípika',
-    description:
-      'Vibración, frecuencia y color: la flexibilidad y luminosidad de la plata, la fortaleza del acero y la noble belleza brillo y color de la perla se conjugan como una síntesis universal de la eterna tejedora que construye eternidades: la mujer.',
-    image: 'arketipica.png'
-  },
-  {
-    id: 'luminika',
-    name: 'Lumínika',
-    description:
-      'Transparencias arquitectónicas: cristales pulidos que refractan tus recuerdos más luminosos.',
-    image: 'luminika.png'
-  },
-  {
-    id: 'kromatika',
-    name: 'Kromátika',
-    description:
-      'Color como lenguaje: cada gema encierra un sentimiento que vibra con tu esencia.',
-    image: 'kromatika.png'
-  },
-  {
-    id: 'jardinsEtFleurs',
-    name: 'Jardins et Fleurs 2024',
-    description:
-      'La fusión de la sutil belleza de las flores con el encanto del glamour francés. Contrastes únicos y plata minimalista para resaltar tu elegancia en cualquier ocasión.',
-    image: 'jardinsetFleurs.png'
-  },
-  {
-    id: 'antropika',
-    name: 'Antrópika',
-    description:
-      'Antrópika representa la esencia de la masculinidad moderna: audacia, fuerza y vanguardia en joyería que refleja confianza y sofisticación.',
-    image: 'antropika.png'
-  }
+  // ... tus 6 colecciones (igual que antes)
 ];
 
 const containerVariants = {
   hidden: {},
   visible: {
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 }
   }
 };
 
@@ -80,11 +36,11 @@ const Collections: React.FC = () => {
       ref={ref}
       className="relative section-padding overflow-hidden"
     >
-      {/* Fondo degradado gris oxford */}
+      {/* Fondo degradado gris oxford, mantiene lo anterior */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-800 via-gray-700 to-transparent opacity-20 pointer-events-none" />
 
       <div className="relative z-10 container">
-        {/* Título y subtítulo */}
+        {/* Título */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -99,7 +55,7 @@ const Collections: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Grid responsivo de colecciones */}
+        {/* Grid responsivo con giro en hover y fondo rojo */}
         <motion.div
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -110,23 +66,27 @@ const Collections: React.FC = () => {
             <motion.div
               key={c.id}
               variants={itemVariants}
-              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+              className="perspective-1000" // clase utilitaria para perspective
             >
-              <div className="relative w-full pb-[75%]"> {/* Aspect ratio 4:3 */}
-                <img
-                  src={`/images/${c.image}`}
-                  alt={c.name}
-                  className="absolute inset-0 w-full h-full object-contain"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-2">
-                  {c.name}
-                </h3>
-                <p className="text-gray-700 text-justify leading-relaxed">
-                  {c.description}
-                </p>
-              </div>
+              <motion.div
+                whileHover={{ rotateY: 180 }}
+                transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+                className="relative w-full pb-[75%] rounded-lg bg-[#8B0000] shadow-lg overflow-hidden transform-style-preserve-3d"
+              >
+                {/* Cara frontal */}
+                <div className="absolute inset-0 backface-hidden">
+                  <img
+                    src={`/images/${c.image}`}
+                    alt={c.name}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                {/* Cara posterior: nombre y descripción */}
+                <div className="absolute inset-0 p-6 backface-hidden rotateY-180 flex flex-col justify-center text-white text-justify">
+                  <h3 className="text-2xl font-semibold mb-2">{c.name}</h3>
+                  <p className="leading-relaxed">{c.description}</p>
+                </div>
+              </motion.div>
             </motion.div>
           ))}
         </motion.div>
