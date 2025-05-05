@@ -6,10 +6,7 @@ import { useInView } from 'react-intersection-observer';
 import collections from '../data/collections';
 
 const Collections: React.FC = () => {
-  const [ref, inView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1
-  });
+  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
 
   return (
     <section
@@ -18,7 +15,7 @@ const Collections: React.FC = () => {
       className="relative section-padding overflow-hidden"
     >
       {/* Fondo degradado suave */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-100 to-gray-200 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-gray-200 to-gray-50 pointer-events-none" />
 
       <div className="relative z-10 container mx-auto">
         {/* Título */}
@@ -41,14 +38,12 @@ const Collections: React.FC = () => {
           {collections.map((c) => (
             <motion.div
               key={c.id}
-              ref={ref}
-              whileHover={{ rotateY: 8, rotateX: 5, scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-              className="relative"
+              className="max-w-xs mx-auto"
               style={{ perspective: 800 }}
+              whileHover={{ rotateY: 8, rotateX: 4, scale: 1.02 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
             >
-              {/* Card */}
-              <div className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 border-t-4 border-l-4 border-red-700">
+              <div className="bg-white rounded-lg border-2 border-red-700 overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-200">
                 {/* Imagen */}
                 <div className="relative w-full pb-[75%] overflow-hidden">
                   <img
@@ -57,6 +52,7 @@ const Collections: React.FC = () => {
                     className="absolute inset-0 w-full h-full object-contain"
                   />
                 </div>
+
                 {/* Texto */}
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-gray-900 mb-2">
