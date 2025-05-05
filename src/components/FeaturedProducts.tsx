@@ -5,7 +5,6 @@ import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import ProductCard from './ProductCard';
 
-// Sustituimos el import original de productos por nuestro array local
 interface Product {
   id: string;
   name: string;
@@ -36,35 +35,34 @@ const itemVariants = {
 const FeaturedProducts: React.FC = () => {
   const [visibleProducts, setVisibleProducts] = useState(products.slice(0, 4));
   const [loadingMore, setLoadingMore]     = useState(false);
-  const [canLoadMore, setCanLoadMore]     = useState(true);
+  const [canLoadMore, setCanLoadMore]     = useState(products.length > 4);
 
   const [sectionRef, sectionInView]   = useInView({ triggerOnce: true, threshold: 0.1 });
   const [sentinelRef, sentinelInView] = useInView({ threshold: 0, rootMargin: '200px 0px' });
 
-  // infinite scroll
+  // Infinite scroll
   useEffect(() => {
-    if (sentinelInView && !loadingMore && visibleProducts.length < products.length) {
-      loadMore();
+    if (sentinelInView && !loadingMore && canLoadMore) {
+      setLoadingMore(true);
+      setTimeout(() => {
+        const next = products.slice(visibleProducts.length, visibleProducts.length + 4);
+        setVisibleProducts(v => [...v, ...next]);
+        setLoadingMore(false);
+        if (visibleProducts.length + next.length >= products.length) {
+          setCanLoadMore(false);
+        }
+      }, 800);
     }
-  }, [sentinelInView]);
-
-  const loadMore = () => {
-    if (loadingMore || visibleProducts.length >= products.length) return;
-    setLoadingMore(true);
-    setTimeout(() => {
-      const nextBatch = products.slice(visibleProducts.length, visibleProducts.length + 4);
-      setVisibleProducts(prev => [...prev, ...nextBatch]);
-      setLoadingMore(false);
-      if (visibleProducts.length + nextBatch.length >= products.length) {
-        setCanLoadMore(false);
-      }
-    }, 800);
-  };
+  }, [sentinelInView, loadingMore, visibleProducts, canLoadMore]);
 
   return (
-    <section id="destacados" className="section-padding bg-white" ref={sectionRef}>
-      <div className="container">
-        {/* Encabezado */}
+    <section
+      id="destacados"
+      ref={sectionRef}
+      className="section-padding bg-white"
+    >
+      <div className="container mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -72,19 +70,19 @@ const FeaturedProducts: React.FC = () => {
           className="text-center mb-12"
         >
           <h2 className="text-3xl font-semibold">Piezas Imperdibles</h2>
-          <p className="text-lg max-w-3xl mx-auto">
+          <p className="text-lg max-w-3xl mx-auto text-gray-700">
             Estas joyas son un epítome de nuestra obra: experimentación y técnica, materiales nobles y formas que acarician la arquitectura de tu propio estilo.
           </p>
         </motion.div>
 
-        {/* Grid de productos */}
+        {/* Products grid */}
         <motion.div
           initial="hidden"
           animate={sectionInView ? 'visible' : 'hidden'}
           variants={containerVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {visibleProducts.map(product => (
+          {visibleProducts.map((product) => (
             <motion.div key={product.id} variants={itemVariants}>
               <ProductCard product={product} />
             </motion.div>
@@ -94,12 +92,12 @@ const FeaturedProducts: React.FC = () => {
         {/* Loading spinner */}
         {loadingMore && (
           <div className="flex justify-center mt-8">
-            <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin"></div>
+            <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
           </div>
         )}
 
-        {/* Sentinel para infinite scroll */}
-        {canLoadMore && <div ref={sentinelRef} className="h-4 mt-8" aria-hidden="true" />}
+        {/* Sentinel div for infinite scroll */}
+        {canLoadMore && <div ref={sentinelRef} className="h-4 mt-8" />}
       </div>
     </section>
   );
