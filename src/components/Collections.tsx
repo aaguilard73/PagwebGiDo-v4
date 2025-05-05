@@ -6,7 +6,10 @@ import { useInView } from 'react-intersection-observer';
 import collections from '../data/collections';
 
 const Collections: React.FC = () => {
-  const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
 
   return (
     <section
@@ -14,7 +17,7 @@ const Collections: React.FC = () => {
       ref={ref}
       className="relative section-padding overflow-hidden"
     >
-      {/* Fondo degradado suave */}
+      {/* Fondo degradado */}
       <div className="absolute inset-0 bg-gradient-to-b from-gray-200 to-gray-50 pointer-events-none" />
 
       <div className="relative z-10 container mx-auto">
@@ -33,17 +36,14 @@ const Collections: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Grid responsivo */}
+        {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {collections.map((c) => (
-            <motion.div
+            <div
               key={c.id}
-              className="max-w-xs mx-auto"
-              style={{ perspective: 800 }}
-              whileHover={{ rotateY: 8, rotateX: 4, scale: 1.02 }}
-              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+              className="tilt-container max-w-xs mx-auto"
             >
-              <div className="bg-white rounded-lg border-2 border-red-700 overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-200">
+              <div className="tilt bg-white rounded-lg border-2 border-red-700 overflow-hidden shadow-lg hover:shadow-2xl">
                 {/* Imagen */}
                 <div className="relative w-full pb-[75%] overflow-hidden">
                   <img
@@ -52,7 +52,6 @@ const Collections: React.FC = () => {
                     className="absolute inset-0 w-full h-full object-contain"
                   />
                 </div>
-
                 {/* Texto */}
                 <div className="p-6">
                   <h3 className="text-2xl font-semibold text-gray-900 mb-2">
@@ -63,7 +62,7 @@ const Collections: React.FC = () => {
                   </p>
                 </div>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
@@ -72,3 +71,4 @@ const Collections: React.FC = () => {
 };
 
 export default Collections;
+
