@@ -3,15 +3,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-
-interface Collection {
-  id: string;
-  name: string;
-  description: string;
-  image: string;
-}
-
-// Tus 6 colecciones
 import collections from '../data/collections';
 
 const containerVariants = {
@@ -33,8 +24,8 @@ const Collections: React.FC = () => {
       ref={ref}
       className="section-padding bg-gradient-to-b from-gray-300 via-gray-200 to-white"
     >
-      <div className="container mx-auto">
-        {/* Título */}
+      <div className="container relative z-10 mx-auto">
+        {/* Título y subtítulo */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -61,16 +52,15 @@ const Collections: React.FC = () => {
               key={c.id}
               variants={itemVariants}
               className="relative"
-              style={{ perspective: '1000px' }} // perspectiva 3D
+              style={{ perspective: '1000px' }}
             >
               <motion.div
-                // Giro 3D al hover
                 whileHover={{ rotateY: 180 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-                className="w-full pb-[75%] rounded-lg overflow-hidden shadow-lg hover:shadow-2xl
+                className="relative w-full pb-[75%] bg-white rounded-lg 
                            border-t-4 border-l-4 border-[#8B0000]
-                           bg-white
-                           relative"
+                           overflow-hidden shadow-lg hover:shadow-2xl
+                           transition-shadow duration-300"
                 style={{ transformStyle: 'preserve-3d' }}
               >
                 {/* Frontal: imagen */}
@@ -88,7 +78,7 @@ const Collections: React.FC = () => {
                 {/* Dorso: texto */}
                 <div
                   className="absolute inset-0 p-6 flex flex-col justify-center
-                             bg-[#8B0000] text-white text-justify"
+                             bg-white text-gray-900 text-justify"
                   style={{
                     transform: 'rotateY(180deg)',
                     backfaceVisibility: 'hidden'
