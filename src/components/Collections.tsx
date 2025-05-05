@@ -1,5 +1,3 @@
-// src/components/Collections.tsx
-
 import React from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
@@ -23,7 +21,7 @@ const Collections: React.FC = () => {
       ref={ref}
       className="section-padding bg-gradient-to-b from-gray-300 via-gray-200 to-white"
     >
-      <div className="container mx-auto">
+      <div className="container mx-auto relative z-10">
         {/* Título */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -39,7 +37,7 @@ const Collections: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Grid de cards */}
+        {/* Grid responsivo */}
         <motion.div
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -53,7 +51,7 @@ const Collections: React.FC = () => {
               className="relative"
               style={{ perspective: 1000 }}
             >
-              {/* Semi-marco rojo y giro 3D */}
+              {/* Card 3D con semimarco rojo */}
               <motion.div
                 whileHover={{ rotateY: 180 }}
                 transition={{ type: 'spring', stiffness: 200, damping: 20 }}
@@ -63,7 +61,7 @@ const Collections: React.FC = () => {
                            transition-shadow duration-300"
                 style={{ transformStyle: 'preserve-3d' }}
               >
-                {/* Frente: imagen */}
+                {/* Frontal: imagen completa */}
                 <div
                   className="absolute inset-0"
                   style={{ backfaceVisibility: 'hidden' }}
@@ -75,7 +73,7 @@ const Collections: React.FC = () => {
                   />
                 </div>
 
-                {/* Dorso: texto */}
+                {/* Dorso: título + descripción */}
                 <div
                   className="absolute inset-0 p-6 flex flex-col justify-center
                              bg-white text-gray-900 text-justify"
