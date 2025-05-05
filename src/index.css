@@ -82,6 +82,18 @@
   .icon-text {
     @apply text-white text-sm whitespace-nowrap drop-shadow-sm;
   }
+
+  /* Tilt 3D sin librerías externas */
+  .tilt-container {
+    perspective: 800px;
+  }
+  .tilt {
+    transform-style: preserve-3d;
+    transition: transform 0.4s ease;
+  }
+  .tilt-container:hover .tilt {
+    transform: rotateY(8deg) rotateX(4deg) scale(1.02);
+  }
 }
 
 @layer utilities {
