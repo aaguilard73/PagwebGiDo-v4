@@ -1,36 +1,49 @@
-import { Collection } from '../types';
+// src/data/collections.ts
 
-export const collections: Collection[] = [
+export interface Collection {
+  id: string
+  name: string
+  description: string
+  image: string  // aquí va la URL pública completa
+}
+
+const collections: Collection[] = [
   {
-    id: "arquetipika",
-    name: "Arquetípika",
-    description: "La fuerza sutil de la feminidad: perlas Biwa y Tahití que emergen como columnas de luz y ritmo eterno.",
-    image: "https://images.pexels.com/photos/10944556/pexels-photo-10944556.jpeg?auto=compress&cs=tinysrgb&w=800"
+    id: 'dinamika',
+    name: 'Dinámika',
+    description: 'Dinámika: audacia, sobriedad, dulzura, fuerza, progresismo, dinamismo y vanguardia se fusionan en modulaciones de ritmo, proporción y jerarquía, imprimendo armonía y un carácter propio a cada creación, exaltando la identidad única de quien la porta.',
+    image: '/images/dinamika.png'
   },
   {
-    id: "luminika",
-    name: "Lumínika",
-    description: "Transparencias arquitectónicas: cristales pulidos que refractan tus recuerdos más luminosos.",
-    image: "https://images.pexels.com/photos/11638420/pexels-photo-11638420.jpeg?auto=compress&cs=tinysrgb&w=800"
+    id: 'arketipica',
+    name: 'Arketípika',
+    description: 'Vibración, frecuencia y color: la flexibilidad y luminosidad de la plata, la fortaleza del acero y la noble belleza brillo y color de la perla se conjugan como una síntesis universal de la eterna tejedora que construye eternidades: la mujer.',
+    image: '/images/arketipica.png'
   },
   {
-    id: "kromatika",
-    name: "Kromátika",
-    description: "Color como lenguaje: cada gema encierra un sentimiento que vibra con tu esencia.",
-    image: "https://images.pexels.com/photos/5370706/pexels-photo-5370706.jpeg?auto=compress&cs=tinysrgb&w=800"
+    id: 'luminika',
+    name: 'Lumínika',
+    description: 'Transparencias arquitectónicas: cristales pulidos que refractan tus recuerdos más luminosos.',
+    image: '/images/luminika.png'
   },
   {
-    id: "jardins",
-    name: "Jardins et Fleurs",
-    description: "Un paseo por Versalles en plata y esmalte cloisonné: elegancia floral que florece en tu piel.",
-    image: "https://images.pexels.com/photos/10192396/pexels-photo-10192396.jpeg?auto=compress&cs=tinysrgb&w=800"
+    id: 'kromatika',
+    name: 'Kromátika',
+    description: 'Color como lenguaje: cada gema encierra un sentimiento que vibra con tu esencia.',
+    image: '/images/kromatika.png'
   },
   {
-    id: "antropika",
-    name: "Antrópika",
-    description: "Geometría y audacia: líneas masculinas que forjan tu presencia con confianza.",
-    image: "https://images.pexels.com/photos/10870385/pexels-photo-10870385.jpeg?auto=compress&cs=tinysrgb&w=800"
+    id: 'jardinsEtFleurs',
+    name: 'Jardins et Fleurs 2024',
+    description: 'La fusión de la sutil belleza de las flores con el encanto del glamour francés. Contrastes únicos y plata minimalista para resaltar tu elegancia en cualquier ocasión.',
+    image: '/images/jardinsetFleurs.png'
+  },
+  {
+    id: 'antropika',
+    name: 'Antrópika',
+    description: 'Antrópika representa la esencia de la masculinidad moderna: audacia, fuerza y vanguardia en joyería que refleja confianza y sofisticación.',
+    image: '/images/antropika.png'
   }
-];
+]
 
-export default collections;
+export default collections
