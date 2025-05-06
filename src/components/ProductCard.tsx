@@ -1,3 +1,5 @@
+// src/components/ProductCard.tsx
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Eye } from 'lucide-react';
@@ -40,17 +42,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <img 
           src={product.image}
           alt={product.name}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 scale-100 hover:scale-105"
         />
-
-        {/* Imagen secundaria (si existe) */}
-        {product.images?.secondary && (
-          <img 
-            src={product.images.secondary}
-            alt={`${product.name} - vista alternativa`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-          />
-        )}
 
         {/* Botones de acciones */}
         <div className="absolute inset-0 bg-black/0 transition-colors duration-300 flex items-center justify-center gap-3 opacity-0 hover:opacity-100 hover:bg-black/30">
