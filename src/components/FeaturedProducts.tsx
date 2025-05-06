@@ -1,10 +1,8 @@
-// src/components/FeaturedProducts.tsx
-
 import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import ProductCard from './ProductCard';
-import products from '../data/products';  // tu array limpio de 8 productos
+import products from '../data/products';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -12,47 +10,55 @@ const containerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.2
-    }
-  }
+      delayChildren: 0.2,
+    },
+  },
 };
 
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
+  visible: { opacity: 1, y: 0 },
 };
 
 const FeaturedProducts: React.FC = () => {
   const [visibleProducts, setVisibleProducts] = useState(() => products.slice(0, 4));
-  const [loadingMore, setLoadingMore]         = useState(false);
-  const [canLoadMore, setCanLoadMore]         = useState(() => products.length > 4);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [canLoadMore, setCanLoadMore] = useState(products.length > 4);
 
-  const [sectionRef, sectionInView]   = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [sentinelRef, sentinelInView] = useInView({ threshold: 0, rootMargin: '200px 0px' });
+  const [sectionRef, sectionInView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+  });
+
+  const [sentinelRef, sentinelInView] = useInView({
+    threshold: 0,
+    rootMargin: '200px 0px',
+  });
 
   useEffect(() => {
     if (sentinelInView && !loadingMore && canLoadMore) {
-      setLoadingMore(true);
-      setTimeout(() => {
-        const nextBatch = products.slice(
-          visibleProducts.length,
-          visibleProducts.length + 4
-        );
-        setVisibleProducts(prev => [...prev, ...nextBatch]);
-        setLoadingMore(false);
-        if (visibleProducts.length + nextBatch.length >= products.length) {
-          setCanLoadMore(false);
-        }
-      }, 800);
+      loadMoreProducts();
     }
-  }, [sentinelInView, loadingMore, visibleProducts, canLoadMore]);
+  }, [sentinelInView, loadingMore, canLoadMore]);
+
+  const loadMoreProducts = () => {
+    setLoadingMore(true);
+    setTimeout(() => {
+      const nextBatch = products.slice(
+        visibleProducts.length,
+        visibleProducts.length + 4
+      );
+      setVisibleProducts(prev => [...prev, ...nextBatch]);
+      setLoadingMore(false);
+
+      if (visibleProducts.length + nextBatch.length >= products.length) {
+        setCanLoadMore(false);
+      }
+    }, 500);
+  };
 
   return (
-    <section
-      id="destacados"
-      ref={sectionRef}
-      className="section-padding bg-white"
-    >
+    <section id="destacados" ref={sectionRef} className="section-padding bg-white">
       <div className="container mx-auto">
         {/* Header */}
         <motion.div
@@ -67,29 +73,31 @@ const FeaturedProducts: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Products grid */}
+        {/* Products Grid */}
         <motion.div
           initial="hidden"
           animate={sectionInView ? 'visible' : 'hidden'}
           variants={containerVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {visibleProducts.map(product => (
+          {visibleProducts.map((product) => (
             <motion.div key={product.id} variants={itemVariants}>
               <ProductCard product={product} />
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Loading spinner */}
+        {/* Loading Spinner */}
         {loadingMore && (
           <div className="flex justify-center mt-8">
-            <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
+            <div className="w-10 h-10 border-4 border-gray-300 border-t-primary rounded-full animate-spin" />
           </div>
         )}
 
-        {/* Sentinel for infinite scroll */}
-        {canLoadMore && <div ref={sentinelRef} className="h-4 mt-8" aria-hidden="true" />}
+        {/* Infinite Scroll Sentinel */}
+        {canLoadMore && (
+          <div ref={sentinelRef} className="h-4 mt-8" aria-hidden="true" />
+        )}
       </div>
     </section>
   );
