@@ -38,13 +38,23 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100">
+        {/* Imagen principal */}
         <img
-          src={product.image}
+          src={product.images.primary}
           alt={product.name}
-          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
         />
 
-        {/* Botones de acciones */}
+        {/* Imagen secundaria */}
+        {product.images.secondary && (
+          <img
+            src={product.images.secondary}
+            alt={`${product.name} - vista alternativa`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          />
+        )}
+
+        {/* Botones de acción */}
         <div className="absolute inset-0 bg-black/0 transition-colors duration-300 flex items-center justify-center gap-3 opacity-0 hover:opacity-100 hover:bg-black/30">
           <button
             onClick={handleQuickView}
@@ -58,7 +68,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className={`w-10 h-10 rounded-full bg-white flex items-center justify-center transition-transform duration-300 transform hover:scale-110 ${
               isFavorite ? 'text-primary' : 'text-dark hover:text-primary'
             }`}
-            aria-label={isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+            aria-label={isFavorite ? "Quitar de favoritos" : "Agregar a favoritos"}
           >
             <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
           </button>
