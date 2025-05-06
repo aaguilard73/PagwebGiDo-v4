@@ -10,23 +10,19 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  
+
   const toggleFavorite = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsFavorite(!isFavorite);
-    
-    // Here you would normally update a wishlist in your app state or localStorage
   };
-  
+
   const handleQuickView = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    
-    // Here you would normally trigger a modal with product details
     console.log('Quick view', product);
   };
-  
+
   return (
     <motion.div
       variants={{
@@ -39,27 +35,24 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative aspect-square overflow-hidden">
+      <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100">
+        {/* Imagen principal */}
         <img 
-          src={product.images.primary} 
+          src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover"
-          style={{
-            opacity: isHovered ? 0 : 1,
-            transition: 'opacity 0.5s ease-in-out'
-          }}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
         />
-        <img 
-          src={product.images.secondary} 
-          alt={`${product.name} - vista alternativa`}
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{
-            opacity: isHovered ? 1 : 0,
-            transition: 'opacity 0.5s ease-in-out'
-          }}
-        />
-        
-        {/* Action buttons overlay */}
+
+        {/* Imagen secundaria (si existe) */}
+        {product.images?.secondary && (
+          <img 
+            src={product.images.secondary}
+            alt={`${product.name} - vista alternativa`}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          />
+        )}
+
+        {/* Botones de acciones */}
         <div className="absolute inset-0 bg-black/0 transition-colors duration-300 flex items-center justify-center gap-3 opacity-0 hover:opacity-100 hover:bg-black/30">
           <button
             onClick={handleQuickView}
@@ -79,10 +72,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </button>
         </div>
       </div>
-      
+
       <div className="p-4 text-center">
-        <h3 className="font-medium">{product.name}</h3>
-        <span className="block text-primary font-medium mt-1">${product.price.toLocaleString()} MXN</span>
+        <h3 className="font-medium text-lg">{product.name}</h3>
+        {product.price && (
+          <span className="block text-primary font-semibold mt-1">
+            ${product.price.toLocaleString()} MXN
+          </span>
+        )}
       </div>
     </motion.div>
   );
