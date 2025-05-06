@@ -4,52 +4,92 @@ import type { Product } from '../types';
 
 export const products: Product[] = [
   {
-    id: 'producto1',
+    id: 1,
     name: 'Producto 1',
     price: 1000,
-    image: '/images/producto1.png',
+    line: '',
+    collection: '',
+    images: {
+      primary: '/images/producto1.png',
+      secondary: '/images/producto1.png', // Misma imagen por ahora
+    },
   },
   {
-    id: 'producto2',
+    id: 2,
     name: 'Producto 2',
     price: 1200,
-    image: '/images/producto2.png',
+    line: '',
+    collection: '',
+    images: {
+      primary: '/images/producto2.png',
+      secondary: '/images/producto2.png',
+    },
   },
   {
-    id: 'producto3',
+    id: 3,
     name: 'Producto 3',
     price: 1400,
-    image: '/images/producto3.png',
+    line: '',
+    collection: '',
+    images: {
+      primary: '/images/producto3.png',
+      secondary: '/images/producto3.png',
+    },
   },
   {
-    id: 'producto4',
+    id: 4,
     name: 'Producto 4',
     price: 1600,
-    image: '/images/producto4.png',
+    line: '',
+    collection: '',
+    images: {
+      primary: '/images/producto4.png',
+      secondary: '/images/producto4.png',
+    },
   },
   {
-    id: 'producto5',
+    id: 5,
     name: 'Producto 5',
     price: 1800,
-    image: '/images/producto5.png',
+    line: '',
+    collection: '',
+    images: {
+      primary: '/images/producto5.png',
+      secondary: '/images/producto5.png',
+    },
   },
   {
-    id: 'producto6',
+    id: 6,
     name: 'Producto 6',
     price: 2000,
-    image: '/images/producto6.png',
+    line: '',
+    collection: '',
+    images: {
+      primary: '/images/producto6.png',
+      secondary: '/images/producto6.png',
+    },
   },
   {
-    id: 'producto7',
+    id: 7,
     name: 'Producto 7',
     price: 2200,
-    image: '/images/producto7.png',
+    line: '',
+    collection: '',
+    images: {
+      primary: '/images/producto7.png',
+      secondary: '/images/producto7.png',
+    },
   },
   {
-    id: 'producto8',
+    id: 8,
     name: 'Producto 8',
     price: 2400,
-    image: '/images/producto8.png',
+    line: '',
+    collection: '',
+    images: {
+      primary: '/images/producto8.png',
+      secondary: '/images/producto8.png',
+    },
   },
 ];
 
