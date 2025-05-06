@@ -1,13 +1,11 @@
 // src/types/index.ts
 
 export type Product = {
-  id: number;
+  id: string;
   name: string;
   price: number;
-  description: string;
-  line: string;
-  collection: string;
-  images: {
+  description: string; // ✅ Nuevo: para mostrar la descripción
+  images: {             // ✅ Cambiado: ahora son dos imágenes
     primary: string;
     secondary: string;
   };
