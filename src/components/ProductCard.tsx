@@ -1,3 +1,5 @@
+// src/components/ProductCard.tsx
+
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Heart, Eye } from 'lucide-react';
@@ -20,7 +22,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const handleQuickView = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log('Quick view', product);
+    console.log('Vista rápida', product);
   };
 
   return (
@@ -36,23 +38,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="relative w-full aspect-[4/5] overflow-hidden bg-gray-100">
-        {/* Imagen principal */}
-        <img 
-          src={product.images.primary} 
+        <img
+          src={product.image}
           alt={product.name}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}
+          className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
         />
 
-        {/* Imagen secundaria */}
-        {product.images?.secondary && (
-          <img 
-            src={product.images.secondary} 
-            alt={`${product.name} - vista alternativa`}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-          />
-        )}
-
-        {/* Botones */}
+        {/* Botones de acciones */}
         <div className="absolute inset-0 bg-black/0 transition-colors duration-300 flex items-center justify-center gap-3 opacity-0 hover:opacity-100 hover:bg-black/30">
           <button
             onClick={handleQuickView}
@@ -66,7 +58,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             className={`w-10 h-10 rounded-full bg-white flex items-center justify-center transition-transform duration-300 transform hover:scale-110 ${
               isFavorite ? 'text-primary' : 'text-dark hover:text-primary'
             }`}
-            aria-label={isFavorite ? "Quitar de favoritos" : "Agregar a favoritos"}
+            aria-label={isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
           >
             <Heart size={18} fill={isFavorite ? 'currentColor' : 'none'} />
           </button>
@@ -74,15 +66,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       <div className="p-4 text-center">
-        <h3 className="font-medium text-lg">{product.name}</h3>
-        <p className="text-sm text-gray-500 mt-1">{product.description}</p>
-        <span className="block text-primary font-semibold mt-1">
-          ${product.price.toLocaleString()} MXN
-        </span>
+        <h3 className="font-semibold text-lg">{product.name}</h3>
+        {product.description && (
+          <p className="text-gray-600 text-sm mt-1">{product.description}</p>
+        )}
+        {product.price && (
+          <span className="block text-primary font-semibold mt-2">
+            ${product.price.toLocaleString()} MXN
+          </span>
+        )}
       </div>
     </motion.div>
   );
 };
 
 export default ProductCard;
-
