@@ -9,9 +9,10 @@ export const products: Product[] = [
     price: 1000,
     line: '',
     collection: '',
+    description: 'Descripción breve del producto 1.',
     images: {
       primary: '/images/producto1.png',
-      secondary: '/images/producto1.png', // Misma imagen por ahora
+      secondary: '/images/producto1.png',
     },
   },
   {
@@ -20,6 +21,7 @@ export const products: Product[] = [
     price: 1200,
     line: '',
     collection: '',
+    description: 'Descripción breve del producto 2.',
     images: {
       primary: '/images/producto2.png',
       secondary: '/images/producto2.png',
@@ -31,6 +33,7 @@ export const products: Product[] = [
     price: 1400,
     line: '',
     collection: '',
+    description: 'Descripción breve del producto 3.',
     images: {
       primary: '/images/producto3.png',
       secondary: '/images/producto3.png',
@@ -42,6 +45,7 @@ export const products: Product[] = [
     price: 1600,
     line: '',
     collection: '',
+    description: 'Descripción breve del producto 4.',
     images: {
       primary: '/images/producto4.png',
       secondary: '/images/producto4.png',
@@ -53,6 +57,7 @@ export const products: Product[] = [
     price: 1800,
     line: '',
     collection: '',
+    description: 'Descripción breve del producto 5.',
     images: {
       primary: '/images/producto5.png',
       secondary: '/images/producto5.png',
@@ -64,6 +69,7 @@ export const products: Product[] = [
     price: 2000,
     line: '',
     collection: '',
+    description: 'Descripción breve del producto 6.',
     images: {
       primary: '/images/producto6.png',
       secondary: '/images/producto6.png',
@@ -75,6 +81,7 @@ export const products: Product[] = [
     price: 2200,
     line: '',
     collection: '',
+    description: 'Descripción breve del producto 7.',
     images: {
       primary: '/images/producto7.png',
       secondary: '/images/producto7.png',
@@ -86,6 +93,7 @@ export const products: Product[] = [
     price: 2400,
     line: '',
     collection: '',
+    description: 'Descripción breve del producto 8.',
     images: {
       primary: '/images/producto8.png',
       secondary: '/images/producto8.png',
