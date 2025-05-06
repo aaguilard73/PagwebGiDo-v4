@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion } from 'framer-motion';
 import ProductCard from './ProductCard';
-import products from '../data/products';
+import products from '../data/products'; // Array correcto de productos
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -23,44 +23,32 @@ const itemVariants = {
 const FeaturedProducts: React.FC = () => {
   const [visibleProducts, setVisibleProducts] = useState(() => products.slice(0, 4));
   const [loadingMore, setLoadingMore] = useState(false);
-  const [canLoadMore, setCanLoadMore] = useState(products.length > 4);
+  const [canLoadMore, setCanLoadMore] = useState(() => products.length > 4);
 
-  const [sectionRef, sectionInView] = useInView({
-    triggerOnce: true,
-    threshold: 0.1,
-  });
-
-  const [sentinelRef, sentinelInView] = useInView({
-    threshold: 0,
-    rootMargin: '200px 0px',
-  });
+  const [sectionRef, sectionInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const [sentinelRef, sentinelInView] = useInView({ threshold: 0, rootMargin: '200px 0px' });
 
   useEffect(() => {
     if (sentinelInView && !loadingMore && canLoadMore) {
-      loadMoreProducts();
+      setLoadingMore(true);
+      setTimeout(() => {
+        const nextBatch = products.slice(
+          visibleProducts.length,
+          visibleProducts.length + 4
+        );
+        setVisibleProducts(prev => [...prev, ...nextBatch]);
+        setLoadingMore(false);
+        if (visibleProducts.length + nextBatch.length >= products.length) {
+          setCanLoadMore(false);
+        }
+      }, 800);
     }
-  }, [sentinelInView, loadingMore, canLoadMore]);
-
-  const loadMoreProducts = () => {
-    setLoadingMore(true);
-    setTimeout(() => {
-      const nextBatch = products.slice(
-        visibleProducts.length,
-        visibleProducts.length + 4
-      );
-      setVisibleProducts(prev => [...prev, ...nextBatch]);
-      setLoadingMore(false);
-
-      if (visibleProducts.length + nextBatch.length >= products.length) {
-        setCanLoadMore(false);
-      }
-    }, 500);
-  };
+  }, [sentinelInView, loadingMore, visibleProducts, canLoadMore]);
 
   return (
     <section id="destacados" ref={sectionRef} className="section-padding bg-white">
       <div className="container mx-auto">
-        {/* Header */}
+        {/* Encabezado */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
@@ -73,34 +61,33 @@ const FeaturedProducts: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Products Grid */}
+        {/* Grid de productos */}
         <motion.div
           initial="hidden"
           animate={sectionInView ? 'visible' : 'hidden'}
           variants={containerVariants}
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          {visibleProducts.map((product) => (
+          {visibleProducts.map(product => (
             <motion.div key={product.id} variants={itemVariants}>
               <ProductCard product={product} />
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Loading Spinner */}
+        {/* Loader al cargar más */}
         {loadingMore && (
           <div className="flex justify-center mt-8">
-            <div className="w-10 h-10 border-4 border-gray-300 border-t-primary rounded-full animate-spin" />
+            <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
           </div>
         )}
 
-        {/* Infinite Scroll Sentinel */}
-        {canLoadMore && (
-          <div ref={sentinelRef} className="h-4 mt-8" aria-hidden="true" />
-        )}
+        {/* Elemento de intersección para cargar más */}
+        {canLoadMore && <div ref={sentinelRef} className="h-4 mt-8" aria-hidden="true" />}
       </div>
     </section>
   );
 };
 
 export default FeaturedProducts;
+
