@@ -1,10 +1,16 @@
 // src/types/index.ts
 
 export type Product = {
-  id: string;
+  id: number;
   name: string;
   price: number;
-  image: string;
+  description: string;
+  line: string;
+  collection: string;
+  images: {
+    primary: string;
+    secondary: string;
+  };
 };
 
 export type Collection = {
