@@ -1,17 +1,23 @@
-import React from 'react';
+// src/components/About.tsx
+
+import React, { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion, useTransform, useScroll } from 'framer-motion';
 
 const About = () => {
-  const [ref, inView] = useInView({
+  const ref = useRef<HTMLDivElement>(null);
+  const [sectionRef, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
   });
 
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"]
+    offset: ["start start", "end start"],
   });
+
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   // Zoom lento aplicado al video
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
@@ -21,10 +27,7 @@ const About = () => {
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { 
-        duration: 0.6,
-        staggerChildren: 0.2
-      }
+      transition: { duration: 0.6, staggerChildren: 0.2 }
     }
   };
 
@@ -34,16 +37,24 @@ const About = () => {
   };
 
   return (
-    <section id="quienes-somos" className="section-padding bg-white">
-      <div className="container">
+    <section id="quienes-somos" ref={ref} className="section-padding bg-white relative overflow-hidden">
+      {/* Fondo animado igual que en Hero */}
+      <motion.div
+        className="absolute inset-0 z-0"
+        style={{ y, opacity }}
+      >
+        <div className="absolute inset-0 bg-white" />
+      </motion.div>
+
+      {/* Contenido principal */}
+      <div ref={sectionRef} className="container relative z-10">
         <motion.div
-          ref={ref}
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={variants}
           className="grid md:grid-cols-2 gap-8 items-center"
         >
-          {/* Bloque de texto */}
+          {/* Texto */}
           <motion.div variants={itemVariants} className="order-2 md:order-1 text-justify">
             <h2>El latido de un taller, el pulso de una visión</h2>
             <p className="text-lg">
@@ -57,7 +68,7 @@ const About = () => {
             </a>
           </motion.div>
 
-          {/* Contenedor de video con fade-in + zoom lento */}
+          {/* Video con zoom */}
           <motion.div variants={itemVariants} className="order-1 md:order-2">
             <motion.div
               className="relative overflow-hidden rounded-xl shadow-2xl max-h-[500px] w-full"
@@ -74,7 +85,6 @@ const About = () => {
                 animate={{ opacity: inView ? 1 : 0 }}
                 transition={{ duration: 1.5, ease: 'easeOut' }}
               />
-              {/* Capa sutil de overlay */}
               <div className="absolute inset-0 bg-black/10 rounded-xl pointer-events-none"></div>
             </motion.div>
           </motion.div>
@@ -85,3 +95,4 @@ const About = () => {
 };
 
 export default About;
+
