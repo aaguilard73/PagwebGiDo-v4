@@ -37,13 +37,13 @@ const About = () => {
   };
 
   return (
-    <section id="quienes-somos" ref={ref} className="section-padding bg-white relative overflow-hidden">
+    <section id="quienes-somos" ref={ref} className="section-padding bg-primary relative overflow-hidden">
       {/* Fondo animado igual que en Hero */}
       <motion.div
         className="absolute inset-0 z-0"
         style={{ y, opacity }}
       >
-        <div className="absolute inset-0 bg-white" />
+        <div className="absolute inset-0 bg-primary" />
       </motion.div>
 
       {/* Contenido principal */}
@@ -55,7 +55,7 @@ const About = () => {
           className="grid md:grid-cols-2 gap-8 items-center"
         >
           {/* Texto */}
-          <motion.div variants={itemVariants} className="order-2 md:order-1 text-justify">
+          <motion.div variants={itemVariants} className="order-2 md:order-1 text-justify text-white">
             <h2>El latido de un taller, el pulso de una visión</h2>
             <p className="text-lg">
               Lo que comenzó como un experimento entre planos y maquetas se transformó en un santuario de creatividad: un taller donde cada herramienta resuena como un martillo de arquitecto y cada joya brota de un boceto que desafía los límites.
@@ -95,4 +95,3 @@ const About = () => {
 };
 
 export default About;
-
