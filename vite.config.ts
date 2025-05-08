@@ -16,9 +16,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      // Si en algún punto importas desde public/, esto ayuda:
       '@public': '/public',
+      '@images': '/public/images', // Añadimos este alias
     },
   },
-  publicDir: 'public', // Añadimos esta línea
+  publicDir: 'public',
 });
