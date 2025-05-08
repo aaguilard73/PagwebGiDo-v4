@@ -23,7 +23,7 @@ const FeaturedProducts: React.FC = () => {
       initial="hidden"
       animate="visible"
     >
-      {products.map((product) => ( // Renderizamos todo el array 'products'
+      {products.map((product) => (
         <motion.div key={product.id} variants={cardVariants}>
           <ProductCard product={product} />
         </motion.div>
