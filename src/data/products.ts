@@ -1,13 +1,3 @@
-import type { Product } from '../types';
-import producto1 from '../../src/assets/images/producto1.png';
-import producto2 from '../../src/assets/images/producto2.png';
-import producto3 from '../../src/assets/images/producto3.png';
-import producto4 from '../../src/assets/images/producto4.png';
-import producto5 from '../../src/assets/images/producto5.png';
-import producto6 from '../../src/assets/images/producto6.png';
-import producto7 from '../../src/assets/images/producto7.png';
-import producto8 from '../../src/assets/images/producto8.png';
-
 export const products: Product[] = [
   {
     id: 'producto1',
@@ -18,6 +8,7 @@ export const products: Product[] = [
       primary: producto1,
       secondary: producto1,
     },
+    imageClassName: 'adjust-contain', // Añadimos una clase específica
   },
   {
     id: 'producto2',
@@ -68,6 +59,7 @@ export const products: Product[] = [
       primary: producto6,
       secondary: producto6,
     },
+    imageClassName: 'adjust-contain', // Añadimos la misma clase específica
   },
   {
     id: 'producto7',
@@ -90,5 +82,3 @@ export const products: Product[] = [
     },
   },
 ];
-
-export default products;
