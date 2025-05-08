@@ -6,18 +6,18 @@
   "scripts": {
     "start": "vite",
     "dev": "vite",
-    "build": "vite build -- --legacy-peer-deps",
+    "build": "npm run copy-public && vite build -- --legacy-peer-deps",
     "preview": "vite preview",
     "lint": "eslint .",
-    "postinstall": "npx update-browserslist-db@latest --update-db"
+    "postinstall": "npx update-browserslist-db@latest --update-db",
+    "copy-public": "cp -r public dist"
   },
   "dependencies": {
     "framer-motion": "^11.0.6",
     "lucide-react": "^0.344.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-intersection-observer": "^9.8.1",
-    "react-native-web-swiper": "1.0.4"
+    "react-intersection-observer": "^9.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",
