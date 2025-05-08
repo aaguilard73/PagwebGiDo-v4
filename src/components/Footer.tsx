@@ -1,25 +1,9 @@
-// src/components/Footer.tsx
-
-import React, { useRef } from 'react';
+ import React from 'react';
 import { Instagram, Facebook, Twitter, Mail, MapPin, Phone } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
 
 const Footer = () => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ['start end', 'end start']
-  });
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
   return (
-    <motion.footer
-      ref={ref}
-      style={{ y, opacity }}
-      className="bg-dark text-light/80 py-12"
-    >
+    <footer className="bg-dark text-light/80 py-12">
       <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
@@ -101,7 +85,7 @@ const Footer = () => {
           <p>&copy; {new Date().getFullYear()} Gi.Do - Arquitectura en Plata. Todos los derechos reservados.</p>
         </div>
       </div>
-    </motion.footer>
+    </footer>
   );
 };
 
