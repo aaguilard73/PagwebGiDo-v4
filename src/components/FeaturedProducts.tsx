@@ -3,7 +3,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import ProductCard from './ProductCard';
-import products from '../data/products'; // Importación por defecto (como estaba antes)
+import { products } from '../data/products'; // Importación nombrada (CORRECTA)
 
 const containerVariants = {
   hidden: { opacity: 0 },
