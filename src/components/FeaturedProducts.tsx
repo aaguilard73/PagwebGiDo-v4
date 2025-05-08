@@ -16,9 +16,6 @@ const cardVariants = {
 };
 
 const FeaturedProducts: React.FC = () => {
-  // Aquí podrías filtrar los productos destacados si es necesario
-  const featured = products.slice(0, 4); // Ejemplo: tomar los primeros 4
-
   return (
     <motion.div
       className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-8"
@@ -26,7 +23,7 @@ const FeaturedProducts: React.FC = () => {
       initial="hidden"
       animate="visible"
     >
-      {featured.map((product) => (
+      {products.map((product) => ( // Renderizamos todo el array 'products'
         <motion.div key={product.id} variants={cardVariants}>
           <ProductCard product={product} />
         </motion.div>
