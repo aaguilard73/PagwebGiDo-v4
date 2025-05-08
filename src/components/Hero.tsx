@@ -75,7 +75,7 @@ const Hero = () => {
         >
           <h1 className="text-shadow-lg">Arquitectura en Plata</h1>
           <p className="text-lg md:text-xl mb-6 text-shadow">
-            Imagina un plano en blanco que cobra vida al tacto de un artesano: la plata se curva,
+            Imagina un plano en blanco que cobra vida al tacto de un diseñador: la plata se curva,
             se pliega y se eleva en cada trazo hasta convertirse en joyas que cuentan tu propia historia.
           </p>
           <p className="text-lg md:text-xl mb-8 text-shadow">
