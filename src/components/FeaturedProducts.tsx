@@ -1,93 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+// src/components/FeaturedProducts.tsx
+
+import React from 'react';
 import { motion } from 'framer-motion';
 import ProductCard from './ProductCard';
-import products from '../data/products'; // Array correcto de productos
+import { products } from '../data/products'; // Importación nombrada correcta
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
+  visible: { opacity: 1, transition: { delayChildren: 0.3, staggerChildren: 0.2 } },
 };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
+const cardVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
 };
 
 const FeaturedProducts: React.FC = () => {
-  const [visibleProducts, setVisibleProducts] = useState(() => products.slice(0, 4));
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [canLoadMore, setCanLoadMore] = useState(() => products.length > 4);
-
-  const [sectionRef, sectionInView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const [sentinelRef, sentinelInView] = useInView({ threshold: 0, rootMargin: '200px 0px' });
-
-  useEffect(() => {
-    if (sentinelInView && !loadingMore && canLoadMore) {
-      setLoadingMore(true);
-      setTimeout(() => {
-        const nextBatch = products.slice(
-          visibleProducts.length,
-          visibleProducts.length + 4
-        );
-        setVisibleProducts(prev => [...prev, ...nextBatch]);
-        setLoadingMore(false);
-        if (visibleProducts.length + nextBatch.length >= products.length) {
-          setCanLoadMore(false);
-        }
-      }, 800);
-    }
-  }, [sentinelInView, loadingMore, visibleProducts, canLoadMore]);
+  // Aquí podrías filtrar los productos destacados si es necesario
+  const featured = products.slice(0, 4); // Ejemplo: tomar los primeros 4
 
   return (
-    <section id="destacados" ref={sectionRef} className="section-padding bg-white">
-      <div className="container mx-auto">
-        {/* Encabezado */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-12"
-        >
-          <h2 className="text-3xl font-semibold">Piezas Imperdibles</h2>
-          <p className="text-lg max-w-3xl mx-auto text-gray-700">
-            Estas joyas son un epítome de nuestra obra: experimentación y técnica, materiales nobles y formas que acarician la arquitectura de tu propio estilo.
-          </p>
+    <motion.div
+      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 py-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      {featured.map((product) => (
+        <motion.div key={product.id} variants={cardVariants}>
+          <ProductCard product={product} />
         </motion.div>
-
-        {/* Grid de productos */}
-        <motion.div
-          initial="hidden"
-          animate={sectionInView ? 'visible' : 'hidden'}
-          variants={containerVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {visibleProducts.map(product => (
-            <motion.div key={product.id} variants={itemVariants}>
-              <ProductCard product={product} />
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Loader al cargar más */}
-        {loadingMore && (
-          <div className="flex justify-center mt-8">
-            <div className="w-10 h-10 border-4 border-accent/30 border-t-accent rounded-full animate-spin" />
-          </div>
-        )}
-
-        {/* Elemento de intersección para cargar más */}
-        {canLoadMore && <div ref={sentinelRef} className="h-4 mt-8" aria-hidden="true" />}
-      </div>
-    </section>
+      ))}
+    </motion.div>
   );
 };
 
 export default FeaturedProducts;
-
