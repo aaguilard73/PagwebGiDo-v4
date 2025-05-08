@@ -1,4 +1,12 @@
 import type { Product } from '../types';
+import producto1 from '../../public/images/producto1.png';
+import producto2 from '../../public/images/producto2.png';
+import producto3 from '../../public/images/producto3.png';
+import producto4 from '../../public/images/producto4.png';
+import producto5 from '../../public/images/producto5.png';
+import producto6 from '../../public/images/producto6.png';
+import producto7 from '../../public/images/producto7.png';
+import producto8 from '../../public/images/producto8.png';
 
 export const products: Product[] = [
   {
@@ -7,8 +15,8 @@ export const products: Product[] = [
     price: 1000,
     description: 'Descripción breve del producto 1.',
     images: {
-      primary: '/assets/images/producto1.png',
-      secondary: '/assets/images/producto1.png',
+      primary: producto1,
+      secondary: producto1,
     },
   },
   {
@@ -17,8 +25,8 @@ export const products: Product[] = [
     price: 1200,
     description: 'Descripción breve del producto 2.',
     images: {
-      primary: '/assets/images/producto2.png',
-      secondary: '/assets/images/producto2.png',
+      primary: producto2,
+      secondary: producto2,
     },
   },
   {
@@ -27,8 +35,8 @@ export const products: Product[] = [
     price: 1400,
     description: 'Descripción breve del producto 3.',
     images: {
-      primary: '/assets/images/producto3.png',
-      secondary: '/assets/images/producto3.png',
+      primary: producto3,
+      secondary: producto3,
     },
   },
   {
@@ -37,8 +45,8 @@ export const products: Product[] = [
     price: 1600,
     description: 'Descripción breve del producto 4.',
     images: {
-      primary: '/assets/images/producto4.png',
-      secondary: '/assets/images/producto4.png',
+      primary: producto4,
+      secondary: producto4,
     },
   },
   {
@@ -47,8 +55,8 @@ export const products: Product[] = [
     price: 1800,
     description: 'Descripción breve del producto 5.',
     images: {
-      primary: '/assets/images/producto5.png',
-      secondary: '/assets/images/producto5.png',
+      primary: producto5,
+      secondary: producto5,
     },
   },
   {
@@ -57,8 +65,8 @@ export const products: Product[] = [
     price: 2000,
     description: 'Descripción breve del producto 6.',
     images: {
-      primary: '/assets/images/producto6.png',
-      secondary: '/assets/images/producto6.png',
+      primary: producto6,
+      secondary: producto6,
     },
   },
   {
@@ -67,8 +75,8 @@ export const products: Product[] = [
     price: 2200,
     description: 'Descripción breve del producto 7.',
     images: {
-      primary: '/assets/images/producto7.png',
-      secondary: '/assets/images/producto7.png',
+      primary: producto7,
+      secondary: producto7,
     },
   },
   {
@@ -77,8 +85,8 @@ export const products: Product[] = [
     price: 2400,
     description: 'Descripción breve del producto 8.',
     images: {
-      primary: '/assets/images/producto8.png',
-      secondary: '/assets/images/producto8.png',
+      primary: producto8,
+      secondary: producto8,
     },
   },
 ];
