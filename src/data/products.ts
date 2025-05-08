@@ -1,12 +1,12 @@
 import type { Product } from '../types';
-import producto1 from '@images/producto1.png';
-import producto2 from '@images/producto2.png';
-import producto3 from '@images/producto3.png';
-import producto4 from '@images/producto4.png';
-import producto5 from '@images/producto5.png';
-import producto6 from '@images/producto6.png';
-import producto7 from '@images/producto7.png';
-import producto8 from '@images/producto8.png';
+import producto1 from '../../src/assets/images/producto1.png';
+import producto2 from '../../src/assets/images/producto2.png';
+import producto3 from '../../src/assets/images/producto3.png';
+import producto4 from '../../src/assets/images/producto4.png';
+import producto5 from '../../src/assets/images/producto5.png';
+import producto6 from '../../src/assets/images/producto6.png';
+import producto7 from '../../src/assets/images/producto7.png';
+import producto8 from '../../src/assets/images/producto8.png';
 
 export const products: Product[] = [
   {
