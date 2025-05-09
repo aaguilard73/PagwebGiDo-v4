@@ -3,7 +3,11 @@
 import React, { useRef, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 
-const Trayectoria = () => {
+interface TrayectoriaProps {
+  onClose: () => void;
+}
+
+const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, threshold: 0.2 });
 
@@ -43,21 +47,19 @@ const Trayectoria = () => {
 
         {/* Tarjetas u otros contenidos ya existentes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {/* Aquí colocas tus tarjetas */}
           <div className="bg-white p-6 shadow rounded">Tarjeta 1</div>
           <div className="bg-white p-6 shadow rounded">Tarjeta 2</div>
           <div className="bg-white p-6 shadow rounded">Tarjeta 3</div>
-          {/* ... más tarjetas si ya las tienes */}
         </div>
 
-        {/* Botón de volver al sitio */}
+        {/* Botón de volver al sitio con función funcional */}
         <div className="flex justify-center">
-          <a
-            href="#about"
+          <button
+            onClick={onClose}
             className="bg-black text-white px-6 py-3 rounded-full shadow hover:bg-gray-800 transition"
           >
             Volver al sitio
-          </a>
+          </button>
         </div>
       </motion.div>
     </section>
