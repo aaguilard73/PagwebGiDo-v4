@@ -38,8 +38,8 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } }
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } }
   };
 
   const storytelling = [
@@ -93,20 +93,23 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
           )}
         </motion.div>
 
-        {/* Tarjetas estilo Pokémon */}
+        {/* Tarjetas estilo Pokémon con números destacados */}
         <motion.div
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           variants={{ visible: { transition: { staggerChildren: 0.15 } } }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 w-full"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
         >
           {storytelling.map((text, index) => (
             <motion.div
               key={index}
               variants={itemVariants}
-              className="bg-white/10 text-sm sm:text-base text-white border border-white/20 p-4 rounded-xl shadow-md hover:scale-105 transition-transform duration-300"
+              className="relative group bg-white/10 text-white border border-white/10 p-6 rounded-xl shadow-lg hover:scale-[1.03] hover:shadow-2xl transition duration-300 backdrop-blur"
             >
-              {text}
+              <div className="absolute -top-5 -left-5 bg-gradient-to-br from-white/70 to-white/30 text-dark w-12 h-12 flex items-center justify-center font-bold text-xl rounded-full border border-white/20 shadow-md">
+                {index + 1}
+              </div>
+              <p className="text-sm sm:text-base leading-relaxed">{text}</p>
             </motion.div>
           ))}
         </motion.div>
