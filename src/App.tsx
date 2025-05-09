@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+// src/App.tsx
+
+import React, { useEffect, useRef, useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -13,10 +15,19 @@ import { skipTabbableElements } from './utils/accessibility';
 
 function App() {
   const [showTrayectoria, setShowTrayectoria] = useState(false);
+  const trayectoriaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     skipTabbableElements();
   }, []);
+
+  useEffect(() => {
+    if (showTrayectoria && trayectoriaRef.current) {
+      setTimeout(() => {
+        trayectoriaRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [showTrayectoria]);
 
   return (
     <>
@@ -36,15 +47,17 @@ function App() {
           <CatalogDownload />
         </main>
       ) : (
-        <Trayectoria
-          onClose={() => {
-            setShowTrayectoria(false);
-            setTimeout(() => {
-              const el = document.getElementById('quienes-somos');
-              if (el) el.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-          }}
-        />
+        <div ref={trayectoriaRef}>
+          <Trayectoria
+            onClose={() => {
+              setShowTrayectoria(false);
+              setTimeout(() => {
+                const el = document.getElementById('quienes-somos');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              }, 100);
+            }}
+          />
+        </div>
       )}
 
       {!showTrayectoria && <Footer />}
