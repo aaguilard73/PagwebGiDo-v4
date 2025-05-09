@@ -1,6 +1,4 @@
-// src/components/Header.tsx
-
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
@@ -13,23 +11,7 @@ const navItems = [
 ];
 
 const Header: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-      setLastScrollY(currentScrollY);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
 
   const navVariants = {
     open: {
@@ -51,18 +33,16 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-white shadow-md transition-transform duration-300 ${
-        isVisible ? 'translate-y-0' : '-translate-y-full'
-      }`}
+      className="sticky top-0 z-50 bg-white shadow-md transition-all duration-300"
       role="banner"
     >
       <div className="container mx-auto flex items-center justify-between py-4 px-4">
-        {/* Logo via public/images/logo.png */}
+        {/* Logo */}
         <a href="#hero" className="flex items-center">
           <img
             src="/images/logo.png"
             alt="Gi.Do"
-            className="h-10 w-auto"
+            className="h-16 w-auto max-h-16 transition-all duration-300"
           />
         </a>
 
