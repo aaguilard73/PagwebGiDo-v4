@@ -3,6 +3,14 @@ import { useInView } from 'react-intersection-observer';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Download } from 'lucide-react';
 
+const catalogs = [
+  { name: 'KROMÁTIKA', file: 'kromatika.pdf' },
+  { name: 'JARDINS ET FLEURS', file: 'jardins-et-fleurs.pdf' },
+  { name: 'ARKETÍPIKA', file: 'arketipika.pdf' },
+  { name: 'LUMÍNIKA', file: 'luminika.pdf' },
+  { name: 'ANTRÓPIKA', file: 'antropika.pdf' },
+];
+
 const CatalogDownload = () => {
   const ref = useRef<HTMLDivElement>(null);
   const [sectionRef, inView] = useInView({
@@ -44,18 +52,24 @@ const CatalogDownload = () => {
             Tu pasaporte al mundo Gi.Do
           </h2>
           <p className="text-base sm:text-lg mb-8">
-            Descarga el PDF con nuestras 50-60 creaciones (desde perlas Biwa hasta meteorito) y sumérgete en la narrativa completa de cada diseño, su historia y su alma.
+            Descarga los catálogos de cada una de nuestras colecciones y explora sus universos únicos.
           </p>
-          <motion.a
-            href="/catalogo-gido.pdf" // <-- Ajusta esto con el path real
-            download
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-primary font-semibold rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
-          >
-            <Download size={20} />
-            <span>Descargar Catálogo</span>
-          </motion.a>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+            {catalogs.map((cat) => (
+              <motion.a
+                key={cat.file}
+                href={`/catalogos/${cat.file}`}
+                download
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-white text-primary font-semibold rounded-full shadow-md hover:bg-gray-100 transition-colors duration-300"
+              >
+                <Download size={20} />
+                <span>{cat.name}</span>
+              </motion.a>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>
