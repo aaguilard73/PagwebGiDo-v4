@@ -1,5 +1,3 @@
-// src/components/FeaturedProducts.tsx
-
 import React, { useRef, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion, useScroll, useTransform } from 'framer-motion';
@@ -21,34 +19,39 @@ const FeaturedProducts: React.FC = () => {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '50%']);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
-  const [visibleProducts] = useState(products.slice(0, 8)); // Mostrar los 8 productos inicialmente
+  const [visibleProducts] = useState(products.slice(0, 8)); // Mostrar los primeros 8 productos
 
   return (
-    <section id="destacados" ref={ref} className="relative section-padding bg-white overflow-hidden">
-      
-      {/* Fondo dinámico con y y opacity */}
+    <section
+      id="destacados"
+      ref={ref}
+      className="relative py-20 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden"
+    >
+      {/* Fondo animado */}
       <motion.div
         className="absolute inset-0 z-0 bg-white"
         style={{ y, opacity }}
       />
 
       {/* Contenido */}
-      <div ref={sectionRef} className="container relative z-10">
+      <div ref={sectionRef} className="relative z-10 max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          animate={sectionInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl font-semibold">Piezas Imperdibles</h2>
-          <p className="text-lg max-w-3xl mx-auto text-gray-700">
-            Estas joyas son un epítome de nuestra obra: experimentación y técnica, materiales nobles y formas que acarician la arquitectura de tu propio estilo.
+          <h2 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4">
+            Piezas Imperdibles
+          </h2>
+          <p className="text-base sm:text-lg max-w-3xl mx-auto text-gray-700">
+            Estas joyas son el epítome de nuestra obra: experimentación, técnica, materiales nobles y formas que acarician la arquitectura de tu propio estilo.
           </p>
         </motion.div>
 
         <motion.div
           initial="hidden"
-          animate={sectionInView ? "visible" : "hidden"}
+          animate={sectionInView ? 'visible' : 'hidden'}
           variants={{
             hidden: { opacity: 0 },
             visible: {
@@ -68,3 +71,4 @@ const FeaturedProducts: React.FC = () => {
 };
 
 export default FeaturedProducts;
+
