@@ -12,6 +12,7 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   const [showPlayButton, setShowPlayButton] = useState(false);
   const [showAudioHint, setShowAudioHint] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [flippedIndex, setFlippedIndex] = useState<number | null>(null);
 
   const [sectionRef, inView] = useInView({ triggerOnce: true, threshold: 0.2 });
 
@@ -36,11 +37,6 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   });
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20, scale: 0.95 },
-    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: 'easeOut' } }
-  };
 
   const storytelling = [
     "Algunos comienzan con una idea. Nosotros comenzamos con una inquietud: ¿Y si la arquitectura pudiera abrazarse?",
@@ -93,7 +89,7 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
           )}
         </motion.div>
 
-        {/* Tarjetas estilo Pokémon con números destacados */}
+        {/* Tarjetas interactivas con flip y diseño destacado */}
         <motion.div
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -103,13 +99,30 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
           {storytelling.map((text, index) => (
             <motion.div
               key={index}
-              variants={itemVariants}
-              className="relative group bg-white/10 text-white border border-white/10 p-6 rounded-xl shadow-lg hover:scale-[1.03] hover:shadow-2xl transition duration-300 backdrop-blur"
+              className="relative perspective"
             >
-              <div className="absolute -top-5 -left-5 bg-gradient-to-br from-white/70 to-white/30 text-dark w-12 h-12 flex items-center justify-center font-bold text-xl rounded-full border border-white/20 shadow-md">
-                {index + 1}
+              <div
+                className={`transition-transform duration-700 transform-style-preserve-3d rounded-xl shadow-xl w-full h-52 cursor-pointer ${flippedIndex === index ? 'rotate-y-180' : ''}`}
+              >
+                {/* Front */}
+                <div className="absolute backface-hidden w-full h-full bg-white/10 border border-white/10 rounded-xl flex flex-col justify-center items-center p-4">
+                  <div className="text-5xl font-black text-white/30 drop-shadow-sm mb-2">
+                    {index + 1}
+                  </div>
+                  <button
+                    className="text-sm text-white bg-white/10 border border-white/20 px-3 py-1 rounded-full hover:bg-white/20 transition"
+                    onClick={() => setFlippedIndex(index)}
+                  >
+                    Presiona aquí
+                  </button>
+                </div>
+                {/* Back */}
+                <div className="absolute backface-hidden rotate-y-180 w-full h-full bg-white/10 border border-white/10 rounded-xl flex items-center p-4">
+                  <p className="text-sm text-white leading-relaxed">
+                    {text}
+                  </p>
+                </div>
               </div>
-              <p className="text-sm sm:text-base leading-relaxed">{text}</p>
             </motion.div>
           ))}
         </motion.div>
