@@ -12,11 +12,8 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   const inView = useInView(sectionRef, { once: true, threshold: 0.2 });
 
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash === '#trayectoria' && sectionRef.current) {
-      setTimeout(() => {
-        sectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 100);
+    if (sectionRef.current) {
+      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }, []);
 
@@ -32,10 +29,10 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
         transition={{ duration: 1 }}
         className="w-full max-w-6xl"
       >
-        {/* Video de trayectoria */}
+        {/* VIDEO ✅ Usa video1.mp4 que sí tienes en /public */}
         <div className="mb-12">
           <video
-            src="/videos/trayectoria.mp4"
+            src="/video1.mp4"
             autoPlay
             muted
             loop
@@ -44,15 +41,23 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
           />
         </div>
 
-        {/* Tarjetas visibles */}
+        {/* TARJETAS ✅ Visibles */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white p-6 shadow rounded">Tarjeta 1</div>
-          <div className="bg-white p-6 shadow rounded">Tarjeta 2</div>
-          <div className="bg-white p-6 shadow rounded">Tarjeta 3</div>
-          {/* Puedes agregar más aquí */}
+          <div className="bg-white p-6 shadow rounded text-center">
+            <h3 className="text-lg font-semibold mb-2">Anillo de Plata</h3>
+            <p className="text-gray-600 text-sm">Con perla negra natural</p>
+          </div>
+          <div className="bg-white p-6 shadow rounded text-center">
+            <h3 className="text-lg font-semibold mb-2">Pulsera artesanal</h3>
+            <p className="text-gray-600 text-sm">Diseño orgánico con ónix</p>
+          </div>
+          <div className="bg-white p-6 shadow rounded text-center">
+            <h3 className="text-lg font-semibold mb-2">Collar minimal</h3>
+            <p className="text-gray-600 text-sm">Estructura en plata mate</p>
+          </div>
         </div>
 
-        {/* Botón funcional */}
+        {/* BOTÓN FUNCIONAL ✅ */}
         <div className="flex justify-center">
           <button
             onClick={onClose}
