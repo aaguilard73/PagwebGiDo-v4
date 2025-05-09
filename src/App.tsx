@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
-import Trayectoria from './components/Trayectoria'; // <-- Nuevo import
+import Trayectoria from './components/Trayectoria';
 import Collections from './components/Collections';
 import FeaturedProducts from './components/FeaturedProducts';
 import CatalogDownload from './components/CatalogDownload';
@@ -12,8 +12,9 @@ import BackToTop from './components/ui/BackToTop';
 import { skipTabbableElements } from './utils/accessibility';
 
 function App() {
+  const [showTrayectoria, setShowTrayectoria] = useState(false);
+
   useEffect(() => {
-    // Set up skip link behavior
     skipTabbableElements();
   }, []);
 
@@ -25,15 +26,28 @@ function App() {
       <ScrollProgress />
       <BackToTop />
       <Header />
-      <main id="main-content">
-        <Hero />
-        <About />
-        <Trayectoria /> {/* <-- Sección añadida */}
-        <Collections />
-        <FeaturedProducts />
-        <CatalogDownload />
-      </main>
-      <Footer />
+
+      {!showTrayectoria ? (
+        <main id="main-content">
+          <Hero />
+          <About onShowTrayectoria={() => setShowTrayectoria(true)} />
+          <Collections />
+          <FeaturedProducts />
+          <CatalogDownload />
+        </main>
+      ) : (
+        <Trayectoria
+          onClose={() => {
+            setShowTrayectoria(false);
+            setTimeout(() => {
+              const el = document.getElementById('quienes-somos');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          }}
+        />
+      )}
+
+      {!showTrayectoria && <Footer />}
     </>
   );
 }
