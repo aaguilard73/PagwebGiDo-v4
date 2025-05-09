@@ -25,11 +25,11 @@ const FeaturedProducts: React.FC = () => {
     <section
       id="destacados"
       ref={ref}
-      className="relative py-20 px-4 sm:px-6 lg:px-8 bg-white overflow-hidden"
+      className="relative py-20 px-4 sm:px-6 lg:px-8 bg-black overflow-hidden"
     >
       {/* Fondo animado */}
       <motion.div
-        className="absolute inset-0 z-0 bg-white"
+        className="absolute inset-0 z-0 bg-black"
         style={{ y, opacity }}
       />
 
@@ -41,10 +41,10 @@ const FeaturedProducts: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-4xl font-semibold text-gray-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-white mb-4">
             Piezas Imperdibles
           </h2>
-          <p className="text-base sm:text-lg max-w-3xl mx-auto text-gray-700">
+          <p className="text-base sm:text-lg max-w-3xl mx-auto text-gray-300">
             Estas joyas son el epítome de nuestra obra: experimentación, técnica, materiales nobles y formas que acarician la arquitectura de tu propio estilo.
           </p>
         </motion.div>
@@ -71,4 +71,3 @@ const FeaturedProducts: React.FC = () => {
 };
 
 export default FeaturedProducts;
-
