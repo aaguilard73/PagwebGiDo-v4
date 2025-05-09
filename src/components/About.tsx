@@ -2,7 +2,11 @@ import React, { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion, useTransform, useScroll } from 'framer-motion';
 
-const About = () => {
+interface AboutProps {
+  onShowTrayectoria: () => void;
+}
+
+const About: React.FC<AboutProps> = ({ onShowTrayectoria }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [sectionRef, inView] = useInView({
     triggerOnce: true,
@@ -60,12 +64,12 @@ const About = () => {
               Aquí, la plata late al ritmo de la lima y el pulido: utilizamos la proporción áurea, el juego del vacío y el lleno,
               y materiales como perlas Biwa, arcilla de Oaxaca y hasta meteorito, para construir miniestructuras que dialogan con tu propio espacio interior.
             </p>
-            <a
-              href="#trayectoria"
-              className="inline-block border border-white text-white px-5 py-2 rounded-full hover:bg-white hover:text-primary transition-colors duration-300"
+            <button
+              onClick={onShowTrayectoria}
+              className="inline-block cursor-pointer border border-white text-white px-5 py-2 rounded-full hover:bg-white hover:text-primary transition-colors duration-300"
             >
               Conoce Nuestra Trayectoria
-            </a>
+            </button>
           </motion.div>
 
           {/* Video con zoom lento */}
