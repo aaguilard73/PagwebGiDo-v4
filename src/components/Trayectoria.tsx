@@ -29,7 +29,7 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
         transition={{ duration: 1 }}
         className="w-full max-w-6xl"
       >
-        {/* VIDEO ✅ Usa video1.mp4 que sí tienes en /public */}
+        {/* VIDEO: autoplay, muted, loop, sin controles */}
         <div className="mb-12">
           <video
             src="/video1.mp4"
@@ -41,23 +41,22 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
           />
         </div>
 
-        {/* TARJETAS ✅ Visibles */}
+        {/* TARJETAS: oscuras, numeradas, botón "Presiona aquí" */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white p-6 shadow rounded text-center">
-            <h3 className="text-lg font-semibold mb-2">Anillo de Plata</h3>
-            <p className="text-gray-600 text-sm">Con perla negra natural</p>
-          </div>
-          <div className="bg-white p-6 shadow rounded text-center">
-            <h3 className="text-lg font-semibold mb-2">Pulsera artesanal</h3>
-            <p className="text-gray-600 text-sm">Diseño orgánico con ónix</p>
-          </div>
-          <div className="bg-white p-6 shadow rounded text-center">
-            <h3 className="text-lg font-semibold mb-2">Collar minimal</h3>
-            <p className="text-gray-600 text-sm">Estructura en plata mate</p>
-          </div>
+          {[1, 2, 3, 4, 5, 6].map((n) => (
+            <div
+              key={n}
+              className="bg-gray-900 text-white flex flex-col items-center justify-center rounded-lg h-40"
+            >
+              <div className="text-5xl font-bold mb-4">{n}</div>
+              <button className="bg-white text-black px-4 py-2 rounded-full shadow">
+                Presiona aquí
+              </button>
+            </div>
+          ))}
         </div>
 
-        {/* BOTÓN FUNCIONAL ✅ */}
+        {/* BOTÓN: volver al sitio */}
         <div className="flex justify-center">
           <button
             onClick={onClose}
