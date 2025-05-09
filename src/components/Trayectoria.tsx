@@ -51,13 +51,13 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
     <section
       id="trayectoria"
       ref={ref}
-      className="relative min-h-screen bg-dark text-white px-4 sm:px-6 py-16 overflow-hidden"
+      className="relative min-h-screen bg-black text-white px-4 sm:px-6 py-16 overflow-hidden"
     >
-      <motion.div className="absolute inset-0 z-0 bg-dark" style={{ y, opacity }} />
+      <motion.div className="absolute inset-0 z-0 bg-black" style={{ y, opacity }} />
 
       <div ref={sectionRef} className="relative z-10 max-w-7xl mx-auto flex flex-col gap-10 items-center">
 
-        {/* Video en parte superior */}
+        {/* Video superior */}
         <motion.div
           initial={{ opacity: 0, y: -30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -89,7 +89,7 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
           )}
         </motion.div>
 
-        {/* Tarjetas interactivas con flip y diseño destacado */}
+        {/* Tarjetas con animación flip y números destacados */}
         <motion.div
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -99,28 +99,36 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
           {storytelling.map((text, index) => (
             <motion.div
               key={index}
-              className="relative perspective"
+              className="relative w-full h-64 [transform-style:preserve-3d] [perspective:1000px]"
+              whileHover={{ scale: 1.02 }}
             >
               <div
-                className={`transition-transform duration-700 transform-style-preserve-3d rounded-xl shadow-xl w-full h-52 cursor-pointer ${flippedIndex === index ? 'rotate-y-180' : ''}`}
+                className={`w-full h-full transition-transform duration-700 rounded-xl relative [transform-style:preserve-3d] ${flippedIndex === index ? 'rotate-y-180' : ''}`}
               >
                 {/* Front */}
-                <div className="absolute backface-hidden w-full h-full bg-white/10 border border-white/10 rounded-xl flex flex-col justify-center items-center p-4">
-                  <div className="text-5xl font-black text-white/30 drop-shadow-sm mb-2">
+                <div className="absolute inset-0 bg-white/10 border border-white/10 rounded-xl flex flex-col justify-center items-center p-4 backface-hidden">
+                  <div className="text-[5rem] font-black text-white/20 mb-2 drop-shadow-sm">
                     {index + 1}
                   </div>
                   <button
-                    className="text-sm text-white bg-white/10 border border-white/20 px-3 py-1 rounded-full hover:bg-white/20 transition"
+                    className="text-sm text-white bg-white/10 border border-white/20 px-4 py-2 rounded-full hover:bg-white/20 transition"
                     onClick={() => setFlippedIndex(index)}
                   >
                     Presiona aquí
                   </button>
                 </div>
+
                 {/* Back */}
-                <div className="absolute backface-hidden rotate-y-180 w-full h-full bg-white/10 border border-white/10 rounded-xl flex items-center p-4">
-                  <p className="text-sm text-white leading-relaxed">
+                <div className="absolute inset-0 rotate-y-180 bg-white/10 border border-white/10 rounded-xl flex flex-col justify-between p-4 backface-hidden">
+                  <p className="text-white text-sm leading-relaxed">
                     {text}
                   </p>
+                  <button
+                    className="text-xs text-white/80 mt-4 border border-white/20 px-3 py-1 rounded-full hover:bg-white/20 transition"
+                    onClick={() => setFlippedIndex(null)}
+                  >
+                    Volver
+                  </button>
                 </div>
               </div>
             </motion.div>
