@@ -1,10 +1,12 @@
-// src/components/Trayectoria.tsx
-
 import React, { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
-const Trayectoria = () => {
+interface TrayectoriaProps {
+  onClose: () => void;
+}
+
+const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   const ref = useRef<HTMLDivElement>(null);
   const [sectionRef, inView] = useInView({
     triggerOnce: true,
@@ -92,10 +94,19 @@ const Trayectoria = () => {
             Explora Nuestras Colecciones
           </a>
         </motion.div>
+
+        {/* Botón Volver */}
+        <motion.div className="mt-12">
+          <button
+            onClick={onClose}
+            className="text-sm text-gray-600 hover:text-black underline"
+          >
+            ← Volver al sitio
+          </button>
+        </motion.div>
       </div>
     </section>
   );
 };
 
 export default Trayectoria;
-
