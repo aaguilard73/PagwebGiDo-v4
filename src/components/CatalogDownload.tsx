@@ -33,12 +33,12 @@ const CatalogDownload = () => {
       ref={ref}
       className="relative bg-primary text-white py-20 overflow-hidden"
     >
-      {/* Fondo animado tipo Hero */}
-      <motion.div
-        className="absolute inset-0 z-0"
-        style={{ y, opacity }}
-      >
+      {/* Fondo animado tipo Hero + halo */}
+      <motion.div className="absolute inset-0 z-0" style={{ y, opacity }}>
         <div className="absolute inset-0 bg-primary" />
+
+        {/* Halo de luz difusa */}
+        <div className="absolute w-[600px] h-[600px] bg-white/10 rounded-full blur-[120px] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-0" />
       </motion.div>
 
       {/* Contenido principal */}
