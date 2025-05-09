@@ -9,6 +9,7 @@ const catalogs = [
   { name: 'ARKETÍPIKA', file: 'arketipika.pdf' },
   { name: 'LUMÍNIKA', file: 'luminika.pdf' },
   { name: 'ANTRÓPIKA', file: 'antropika.pdf' },
+  { name: 'DINÁMIKA', file: 'dinamika.pdf' }
 ];
 
 const CatalogDownload = () => {
@@ -52,14 +53,14 @@ const CatalogDownload = () => {
             Tu pasaporte al mundo Gi.Do
           </h2>
           <p className="text-base sm:text-lg mb-8">
-            Descarga los catálogos de cada una de nuestras colecciones y explora sus universos únicos.
+            Descarga los catálogos individuales de cada colección y sumérgete en su esencia arquitectónica.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
             {catalogs.map((cat) => (
               <motion.a
                 key={cat.file}
-                href={`/catalogos/${cat.file}`}
+                href={`/${cat.file}`}
                 download
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
