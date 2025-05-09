@@ -1,5 +1,5 @@
 import React from 'react';
-import { Instagram, Facebook, Twitter, Mail, MapPin, Phone } from 'lucide-react';
+import { Instagram, Facebook, Twitter, Mail, Phone } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -13,7 +13,6 @@ const Footer = () => {
             </a>
             <p className="mb-4">Alta joyería arquitectónica en plata.</p>
             <div className="flex space-x-4">
-              {/* Redes sociales */}
               <a
                 href="https://www.instagram.com/gi.do_joyeria/"
                 target="_blank"
@@ -55,10 +54,6 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-semibold text-white mb-4">Contacto</h3>
             <ul className="space-y-3 text-sm sm:text-base leading-relaxed">
-              <li className="flex items-start">
-                <MapPin size={20} className="mr-2 mt-1 flex-shrink-0" />
-                <span>Paseo de la Reforma 222, Juárez, 06600 Ciudad de México, CDMX</span>
-              </li>
               <li className="flex items-center">
                 <Phone size={20} className="mr-2 flex-shrink-0" />
                 <span>+52 55 1234 5678</span>
