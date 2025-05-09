@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 
 const storyCards = [
   "Algunos comienzan con una idea. Nosotros comenzamos con una inquietud: ¿Y si la arquitectura pudiera abrazarse?",
-  "Así nació Gi.Do. Como una búsqueda entre disciplinas. Entre los trazos de la ingeniería y los silencios del arte. Entre estructuras que sostienen ciudades… y otras que sostienen memorias.",
+  "Así nació Gi.Do. Como una búsqueda entre disciplinas. Entre los trazos de la arquitectura y los silencios del arte. Entre estructuras que sostienen ciudades… y otras que sostienen memorias.",
   "No vinimos a diseñar joyas decorativas. Vinimos a levantar micromundos simbólicos.",
   "Más de 20 años después, seguimos combinando técnicas ancestrales con geometría pura, piedras que nacen del corazón de la Tierra con metales que narran el paso del tiempo.",
   "Cada colección no solo refleja una etapa de Gi.Do. Es también una huella de evolución personal, artística y emocional.",
