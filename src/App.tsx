@@ -52,8 +52,8 @@ function App() {
             onClose={() => {
               setShowTrayectoria(false);
               setTimeout(() => {
-                const el = document.getElementById('quienes-somos');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
+                const el = document.getElementById('about');
+                if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
               }, 100);
             }}
           />
