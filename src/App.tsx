@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import About from './components/About';
+import Trayectoria from './components/Trayectoria'; // <-- Nuevo import
 import Collections from './components/Collections';
 import FeaturedProducts from './components/FeaturedProducts';
 import CatalogDownload from './components/CatalogDownload';
@@ -27,6 +28,7 @@ function App() {
       <main id="main-content">
         <Hero />
         <About />
+        <Trayectoria /> {/* <-- Sección añadida */}
         <Collections />
         <FeaturedProducts />
         <CatalogDownload />
