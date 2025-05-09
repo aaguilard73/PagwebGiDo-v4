@@ -1,5 +1,3 @@
-// src/components/ProductCard.tsx
-
 import React from 'react';
 import type { Product } from '../types';
 
@@ -9,7 +7,7 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="bg-white rounded-xl shadow-md hover:shadow-xl overflow-hidden transition-shadow duration-300">
       {/* Imagen */}
       <div className="relative w-full aspect-[4/5] overflow-hidden">
         <img
@@ -20,11 +18,15 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       </div>
 
       {/* Contenido */}
-      <div className="p-4 text-center">
-        <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
-        <p className="text-primary font-bold mt-2">${product.price.toLocaleString()} MXN</p>
+      <div className="p-4 text-center space-y-2">
+        <h3 className="text-base sm:text-lg font-semibold text-gray-900">
+          {product.name}
+        </h3>
+        <p className="text-primary font-bold text-sm sm:text-base">
+          ${product.price.toLocaleString()} MXN
+        </p>
         {product.description && (
-          <p className="text-gray-600 text-sm mt-2">
+          <p className="text-gray-600 text-xs sm:text-sm leading-snug">
             {product.description}
           </p>
         )}
