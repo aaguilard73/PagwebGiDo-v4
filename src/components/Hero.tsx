@@ -26,7 +26,7 @@ const Hero = () => {
     <section
       id="hero"
       ref={ref}
-      className="relative min-h-[80vh] flex flex-col items-center justify-center overflow-hidden"
+      className="relative min-h-[80vh] flex flex-col items-center justify-center overflow-hidden bg-black"
     >
       {/* Fondo con sombra */}
       <motion.div
@@ -39,10 +39,10 @@ const Hero = () => {
             backgroundImage: `url('/images/fondo-gido.png')`
           }}
         />
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/60" />
       </motion.div>
 
-      {/* Carrusel de íconos con animación */}
+      {/* Carrusel de íconos */}
       <div className="w-full overflow-hidden relative z-10 pt-6">
         <div className="animate-slide flex gap-x-8 sm:gap-x-10 lg:gap-x-12 items-center w-max px-4">
           {[...iconItems, ...iconItems].map((item, index) => (
