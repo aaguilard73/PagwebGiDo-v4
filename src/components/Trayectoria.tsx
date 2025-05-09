@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const storyCards = [
@@ -12,6 +12,25 @@ const storyCards = [
 
 const Trayectoria = () => {
   const [flipped, setFlipped] = useState(Array(storyCards.length).fill(false));
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [showPlayButton, setShowPlayButton] = useState(false);
+  const [showAudioHint, setShowAudioHint] = useState(false);
+
+  useEffect(() => {
+    const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
+    setIsMobile(isMobileDevice);
+    setShowPlayButton(isMobileDevice);
+    setShowAudioHint(isMobileDevice);
+  }, []);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setShowPlayButton(false);
+      setShowAudioHint(false);
+    }
+  };
 
   const handleFlip = (index: number) => {
     setFlipped(prev => prev.map((f, i) => i === index ? !f : f));
@@ -23,11 +42,38 @@ const Trayectoria = () => {
         <h2 className="text-3xl sm:text-4xl font-bold">Una historia que se construye en capas, como la plata</h2>
       </div>
 
+      {/* Video superior */}
+      <div className="relative w-full max-w-5xl mx-auto rounded-xl overflow-hidden shadow-xl mb-12">
+        <video
+          ref={videoRef}
+          src="/video1.mp4"
+          autoPlay={!isMobile}
+          loop
+          controls
+          playsInline
+          muted={isMobile}
+          className="w-full h-[220px] sm:h-[280px] md:h-[300px] object-cover"
+        />
+        {showPlayButton && (
+          <button
+            onClick={handlePlay}
+            className="absolute inset-0 flex items-center justify-center bg-black/50 text-white text-lg font-semibold hover:bg-black/70 transition"
+          >
+            ▶ Reproducir Video
+          </button>
+        )}
+        {showAudioHint && (
+          <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-3 py-1 rounded shadow-md animate-pulse">
+            🔊 Activa el sonido
+          </div>
+        )}
+      </div>
+
+      {/* Tarjetas interactivas */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center max-w-6xl mx-auto">
         {storyCards.map((text, index) => (
           <div key={index} className="relative perspective h-64">
             <div className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${flipped[index] ? 'rotate-y-180' : ''}`}>
-              
               {/* Front */}
               <motion.div
                 className="absolute w-full h-full backface-hidden bg-gray-800 rounded-xl flex flex-col justify-center items-center shadow-xl"
@@ -78,5 +124,3 @@ const Trayectoria = () => {
 };
 
 export default Trayectoria;
-
-     
