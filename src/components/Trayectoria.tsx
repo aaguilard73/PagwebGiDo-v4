@@ -10,6 +10,7 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   const ref = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [showPlayButton, setShowPlayButton] = useState(false);
+  const [showAudioHint, setShowAudioHint] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
   const [sectionRef, inView] = useInView({
@@ -18,9 +19,19 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   });
 
   useEffect(() => {
-    setIsMobile(/Mobi|Android/i.test(navigator.userAgent));
-    setShowPlayButton(/Mobi|Android/i.test(navigator.userAgent));
+    const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
+    setIsMobile(isMobileDevice);
+    setShowPlayButton(isMobileDevice);
+    setShowAudioHint(isMobileDevice);
   }, []);
+
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setShowPlayButton(false);
+      setShowAudioHint(false);
+    }
+  };
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -42,26 +53,17 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
     visible: { opacity: 1, y: 0 }
   };
 
-  const handlePlay = () => {
-    if (videoRef.current) {
-      videoRef.current.play();
-      setShowPlayButton(false);
-    }
-  };
-
   return (
     <section
       id="trayectoria"
       ref={ref}
       className="relative py-24 px-6 bg-dark text-light overflow-hidden"
     >
-      {/* Fondo animado */}
       <motion.div className="absolute inset-0 z-0 bg-dark" style={{ y, opacity }} />
 
-      {/* Contenido principal */}
-      <div ref={sectionRef} className="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div ref={sectionRef} className="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-start">
 
-        {/* Video con botón de reproducción en móviles */}
+        {/* Video con botón de reproducción y mensaje */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={inView ? { opacity: 1, x: 0 } : {}}
@@ -86,61 +88,48 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
               ▶ Reproducir Video
             </button>
           )}
+          {showAudioHint && (
+            <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-3 py-1 rounded shadow-md animate-fade-in">
+              🔊 Activa el sonido
+            </div>
+          )}
         </motion.div>
 
-        {/* Texto narrativo animado */}
+        {/* Tarjetas encapsuladas */}
         <motion.div
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
           variants={containerVariants}
-          className="space-y-6 text-lg sm:text-xl leading-relaxed"
+          className="space-y-6"
         >
-          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl font-semibold text-white mb-4">
+          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl font-semibold text-white mb-2">
             Una historia que se construye en capas, como la plata
           </motion.h2>
 
-          <motion.p variants={itemVariants}>
-            Algunos comienzan con una idea.  <br />Nosotros comenzamos con una inquietud:  <br /><strong>¿Y si la arquitectura pudiera abrazarse?</strong>
-          </motion.p>
-
-          <motion.p variants={itemVariants}>
-            Así nació Gi.Do. Como una búsqueda entre disciplinas.  Entre los trazos de la ingeniería y los silencios del arte.  Entre estructuras que sostienen ciudades… y otras que sostienen memorias.
-          </motion.p>
-
-          <motion.p variants={itemVariants}>
-            No vinimos a diseñar joyas decorativas.  <strong>Vinimos a levantar micromundos simbólicos.</strong>
-          </motion.p>
-
-          <motion.p variants={itemVariants}>
-            Más de 20 años después, seguimos combinando técnicas ancestrales con geometría pura,  piedras que nacen del corazón de la Tierra con metales que narran el paso del tiempo.
-          </motion.p>
-
-          <motion.p variants={itemVariants}>
-            Cada colección no solo refleja una etapa de Gi.Do.  Es también una huella de evolución personal, artística y emocional.
-          </motion.p>
-
-          <motion.p variants={itemVariants}>
-            Porque para nosotros, <strong>crear joyería es una forma de habitar el mundo</strong>,  desde la precisión, la emoción y la belleza.
-          </motion.p>
-
-          {/* CTA */}
-          <motion.div variants={itemVariants} className="mt-6">
-            <a
-              href="#colecciones"
-              onClick={onClose}
-              className="inline-block bg-white text-black font-medium px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-300"
+          {[ // Story blocks encapsulated
+            "Algunos comienzan con una idea. Nosotros comenzamos con una inquietud: ¿Y si la arquitectura pudiera abrazarse?",
+            "Así nació Gi.Do. Como una búsqueda entre disciplinas. Entre los trazos de la ingeniería y los silencios del arte. Entre estructuras que sostienen ciudades… y otras que sostienen memorias.",
+            "No vinimos a diseñar joyas decorativas. Vinimos a levantar micromundos simbólicos.",
+            "Más de 20 años después, seguimos combinando técnicas ancestrales con geometría pura, piedras que nacen del corazón de la Tierra con metales que narran el paso del tiempo.",
+            "Cada colección no solo refleja una etapa de Gi.Do. Es también una huella de evolución personal, artística y emocional.",
+            "Porque para nosotros, crear joyería es una forma de habitar el mundo, desde la precisión, la emoción y la belleza."
+          ].map((text, index) => (
+            <motion.div
+              key={index}
+              variants={itemVariants}
+              className="bg-white/10 border border-white/20 rounded-lg p-6 shadow-md text-sm sm:text-base"
             >
-              Explora Nuestras Colecciones
-            </a>
-          </motion.div>
+              {text}
+            </motion.div>
+          ))}
 
           {/* Botón Volver */}
-          <motion.div variants={itemVariants} className="pt-8">
+          <motion.div variants={itemVariants} className="pt-4">
             <button
               onClick={onClose}
-              className="text-sm text-gray-300 hover:text-white underline"
+              className="text-sm text-gray-300 border border-gray-400 px-5 py-2 rounded-full hover:bg-white hover:text-black transition"
             >
-              ← Volver al sitio
+              Volver al sitio
             </button>
           </motion.div>
         </motion.div>
@@ -150,4 +139,3 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
 };
 
 export default Trayectoria;
-
