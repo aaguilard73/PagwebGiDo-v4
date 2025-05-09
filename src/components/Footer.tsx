@@ -21,7 +21,7 @@ const Footer = () => {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, ease: 'easeOut' }}
     >
-      {/* 🌐 VERSIÓN COMPLETA (sm y superiores) */}
+      {/* 🌐 VERSIÓN COMPLETA */}
       <div className="hidden sm:block py-12">
         <div className="container px-6 max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
@@ -67,11 +67,23 @@ const Footer = () => {
               <ul className="space-y-3 text-sm sm:text-base leading-relaxed">
                 <li className="flex items-center">
                   <Phone size={20} className="mr-2 flex-shrink-0" />
-                  <span>+52 55 1234 5678</span>
+                  <a
+                    href="https://wa.me/525512345678"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-accent transition-colors"
+                  >
+                    +52 55 1234 5678
+                  </a>
                 </li>
                 <li className="flex items-center">
                   <Mail size={20} className="mr-2 flex-shrink-0" />
-                  <span>contacto@gido.mx</span>
+                  <a
+                    href="mailto:contacto@gido.mx"
+                    className="hover:text-accent transition-colors"
+                  >
+                    contacto@gido.mx
+                  </a>
                 </li>
               </ul>
             </div>
@@ -110,11 +122,23 @@ const Footer = () => {
         <div className="text-sm space-y-2 text-white/80">
           <div className="flex items-center justify-center gap-2">
             <Phone size={16} />
-            <span>+52 55 1234 5678</span>
+            <a
+              href="https://wa.me/525512345678"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-accent transition-colors"
+            >
+              +52 55 1234 5678
+            </a>
           </div>
           <div className="flex items-center justify-center gap-2">
             <Mail size={16} />
-            <span>contacto@gido.mx</span>
+            <a
+              href="mailto:contacto@gido.mx"
+              className="hover:text-accent transition-colors"
+            >
+              contacto@gido.mx
+            </a>
           </div>
         </div>
 
