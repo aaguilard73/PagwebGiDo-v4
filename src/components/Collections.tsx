@@ -1,5 +1,3 @@
- // src/components/Collections.tsx
-
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
@@ -11,48 +9,47 @@ interface Collection {
   image: string;
 }
 
-// Datos con descripciones homogéneas y completas
 const collections: Collection[] = [
   {
     id: 'dinamika',
     name: 'Dinámika',
     description:
-      'Dinámika: audacia, sobriedad, dulzura, fuerza, progresismo, dinamismo y vanguardia se fusionan en modulaciones de ritmo, proporción y jerarquía, imprimendo armonía y un carácter propio a cada creación, exaltando la identidad única de quien la porta.',
+      'Audacia, sobriedad, dulzura, fuerza y vanguardia se fusionan en ritmos y proporciones que exaltan tu identidad.',
     image: 'dinamika.png'
   },
   {
     id: 'arketipica',
     name: 'Arketípika',
     description:
-      'Arketípika: vibración, frecuencia y color; la flexibilidad y luminosidad de la plata, la fortaleza del acero y la nobleza de la perla se conjugan como una síntesis universal de la eterna tejedora que construye eternidades.',
+      'Frecuencia y color: una sinfonía visual de plata, acero y perlas como símbolos universales de eternidad.',
     image: 'arketipica.png'
   },
   {
     id: 'luminika',
     name: 'Lumínika',
     description:
-      'Lumínika: transparencias arquitectónicas; cristales pulidos que refractan tus recuerdos más luminosos y revelan nuevas perspectivas de luz y forma, fusionando simplicidad y sofisticación en cada pieza.',
+      'Cristales que refractan tus recuerdos: luz, forma y simplicidad arquitectónica convertidas en joya.',
     image: 'luminika.png'
   },
   {
     id: 'kromatika',
     name: 'Kromátika',
     description:
-      'Kromátika: el color como lenguaje; cada gema encierra un sentimiento que vibra con tu esencia, jugando con matices audaces y sutiles en un diálogo cromático que trasciende lo efímero.',
+      'Gemas que vibran con tu esencia: el color como lenguaje emocional y diseño como expresión personal.',
     image: 'kromatika.png'
   },
   {
     id: 'jardinsEtFleurs',
     name: 'Jardins et Fleurs 2024',
     description:
-      'Jardins et Fleurs 2024: la fusión de la sutil belleza floral con el encanto del glamour francés, donde pétalos y estructuras metálicas se entrelazan en un ballet de formas y elegancia atemporal.',
+      'Belleza floral + glamour francés: un ballet entre lo natural y lo arquitectónico con elegancia atemporal.',
     image: 'jardinsetFleurs.png'
   },
   {
     id: 'antropika',
     name: 'Antrópika',
     description:
-      'Antrópika: la esencia de la masculinidad moderna; audacia, fuerza y vanguardia en joyería que dialoga con líneas arquitectónicas, ofreciendo una estética que fusiona lo sobrio con lo disruptivo.',
+      'Joyería con carácter arquitectónico: masculinidad contemporánea, sobriedad y fuerza en cada línea.',
     image: 'antropika.png'
   }
 ];
@@ -61,6 +58,7 @@ const containerVariants = {
   hidden: {},
   visible: { transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
 };
+
 const itemVariants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 }
@@ -73,9 +71,9 @@ const Collections: React.FC = () => {
     <section
       id="colecciones"
       ref={ref}
-      className="section-padding bg-gradient-to-b from-gray-300 via-gray-200 to-white"
+      className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-200 via-gray-100 to-white"
     >
-      <div className="container mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Título */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -83,15 +81,15 @@ const Collections: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-4xl font-semibold text-gray-900">
+          <h2 className="text-3xl sm:text-4xl font-semibold text-gray-900">
             Seis universos para dibujar tu propia narrativa
           </h2>
-          <p className="text-xl max-w-2xl mx-auto mt-2 text-gray-700">
+          <p className="text-lg sm:text-xl max-w-2xl mx-auto mt-2 text-gray-700">
             Elige la línea que susurre tu voz interior.
           </p>
         </motion.div>
 
-        {/* Grid responsivo */}
+        {/* Grid */}
         <motion.div
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
@@ -102,27 +100,43 @@ const Collections: React.FC = () => {
             <motion.div
               key={c.id}
               variants={itemVariants}
-              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300"
+              className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-2xl transition-shadow duration-300"
             >
-              {/* Imagen con ligero zoom al hover */}
+              {/* Imagen */}
               <div className="relative w-full pb-[75%] overflow-hidden">
                 <img
                   src={`/images/${c.image}`}
                   alt={c.name}
-                  className="absolute inset-0 w-full h-full object-contain transform transition-transform duration-300 hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-contain transition-transform duration-300 hover:scale-105"
                 />
               </div>
-              {/* Texto justificado */}
-              <div className="p-6">
-                <h3 className="text-2xl font-semibold text-gray-900 mb-2">
+
+              {/* Texto */}
+              <div className="p-6 space-y-3">
+                <h3 className="text-xl sm:text-2xl font-semibold text-gray-900">
                   {c.name}
                 </h3>
-                <p className="text-gray-700 text-justify leading-relaxed">
+                <p className="text-gray-700 text-justify text-sm sm:text-base leading-relaxed">
                   {c.description}
                 </p>
               </div>
             </motion.div>
           ))}
+        </motion.div>
+
+        {/* CTA al catálogo (opcional) */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="text-center mt-16"
+        >
+          <a
+            href="#catalogo-pdf"
+            className="inline-block bg-primary text-white px-6 py-3 rounded-full font-medium shadow-lg hover:bg-red-800 transition-colors duration-300"
+          >
+            Ver Catálogo Completo
+          </a>
         </motion.div>
       </div>
     </section>
