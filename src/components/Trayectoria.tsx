@@ -1,71 +1,124 @@
-// src/components/Trayectoria.tsx
+import React, { useState, useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
-import React, { useRef, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+const storyCards = [
+  "Algunos comienzan con una idea. Nosotros comenzamos con una inquietud: ¿Y si la arquitectura pudiera abrazarse?",
+  "Así nació Gi.Do. Como una búsqueda entre disciplinas. Entre los trazos de la ingeniería y los silencios del arte. Entre estructuras que sostienen ciudades… y otras que sostienen memorias.",
+  "No vinimos a diseñar joyas decorativas. Vinimos a levantar micromundos simbólicos.",
+  "Más de 20 años después, seguimos combinando técnicas ancestrales con geometría pura, piedras que nacen del corazón de la Tierra con metales que narran el paso del tiempo.",
+  "Cada colección no solo refleja una etapa de Gi.Do. Es también una huella de evolución personal, artística y emocional.",
+  "Porque para nosotros, crear joyería es una forma de habitar el mundo, desde la precisión, la emoción y la belleza."
+];
 
-interface TrayectoriaProps {
-  onClose: () => void;
-}
-
-const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(sectionRef, { once: true, threshold: 0.2 });
+const Trayectoria = () => {
+  const [flipped, setFlipped] = useState(Array(storyCards.length).fill(false));
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [showPlayButton, setShowPlayButton] = useState(false);
+  const [showAudioHint, setShowAudioHint] = useState(false);
 
   useEffect(() => {
-    if (sectionRef.current) {
-      sectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
+    setIsMobile(isMobileDevice);
+    setShowPlayButton(isMobileDevice);
+    setShowAudioHint(isMobileDevice);
   }, []);
 
+  const handlePlay = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setShowPlayButton(false);
+      setShowAudioHint(false);
+    }
+  };
+
+  const handleFlip = (index: number) => {
+    setFlipped(prev => prev.map((f, i) => i === index ? !f : f));
+  };
+
   return (
-    <section
-      id="trayectoria"
-      ref={sectionRef}
-      className="min-h-screen bg-gray-100 flex flex-col items-center justify-start py-20 px-6"
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1 }}
-        className="w-full max-w-6xl"
-      >
-        {/* VIDEO: autoplay, muted, loop, sin controles */}
-        <div className="mb-12">
-          <video
-            src="/video1.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            className="w-full rounded-xl shadow-lg"
-          />
-        </div>
+    <section id="trayectoria" className="min-h-screen bg-black text-white py-16 px-4">
+      <div className="max-w-7xl mx-auto text-center mb-12">
+        <h2 className="text-3xl sm:text-4xl font-bold">Una historia que se construye en capas, como la plata</h2>
+      </div>
 
-        {/* TARJETAS: oscuras, numeradas, botón "Presiona aquí" */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {[1, 2, 3, 4, 5, 6].map((n) => (
-            <div
-              key={n}
-              className="bg-gray-900 text-white flex flex-col items-center justify-center rounded-lg h-40"
-            >
-              <div className="text-5xl font-bold mb-4">{n}</div>
-              <button className="bg-white text-black px-4 py-2 rounded-full shadow">
-                Presiona aquí
-              </button>
-            </div>
-          ))}
-        </div>
-
-        {/* BOTÓN: volver al sitio */}
-        <div className="flex justify-center">
+      {/* Video superior */}
+      <div className="relative w-full max-w-5xl mx-auto rounded-xl overflow-hidden shadow-xl mb-12">
+        <video
+          ref={videoRef}
+          src="/video1.mp4"
+          autoPlay={!isMobile}
+          loop
+          controls
+          playsInline
+          muted={isMobile}
+          className="w-full h-[220px] sm:h-[280px] md:h-[300px] object-cover"
+        />
+        {showPlayButton && (
           <button
-            onClick={onClose}
-            className="bg-black text-white px-6 py-3 rounded-full shadow hover:bg-gray-800 transition"
+            onClick={handlePlay}
+            className="absolute inset-0 flex items-center justify-center bg-black/50 text-white text-lg font-semibold hover:bg-black/70 transition"
           >
-            Volver al sitio
+            ▶ Reproducir Video
           </button>
-        </div>
-      </motion.div>
+        )}
+        {showAudioHint && (
+          <div className="absolute bottom-4 right-4 bg-black/70 text-white text-xs px-3 py-1 rounded shadow-md animate-pulse">
+            🔊 Activa el sonido
+          </div>
+        )}
+      </div>
+
+      {/* Tarjetas interactivas */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center max-w-6xl mx-auto">
+        {storyCards.map((text, index) => (
+          <div key={index} className="relative perspective h-64">
+            <div className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${flipped[index] ? 'rotate-y-180' : ''}`}>
+              {/* Front */}
+              <motion.div
+                className="absolute w-full h-full backface-hidden bg-gray-800 rounded-xl flex flex-col justify-center items-center shadow-xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+              >
+                <span className="absolute text-8xl font-black text-white/10 pointer-events-none">{index + 1}</span>
+                <button
+                  onClick={() => handleFlip(index)}
+                  className="z-10 mt-auto mb-8 px-5 py-2 bg-white text-black font-semibold rounded-full hover:bg-gray-200 transition"
+                >
+                  Presiona aquí
+                </button>
+              </motion.div>
+
+              {/* Back */}
+              <div className="absolute w-full h-full backface-hidden rotate-y-180 bg-gray-900 rounded-xl p-6 flex flex-col justify-center items-center text-center shadow-xl">
+                <p className="text-base sm:text-lg mb-6">{text}</p>
+                <button
+                  onClick={() => handleFlip(index)}
+                  className="px-5 py-2 border border-white text-white rounded-full hover:bg-white hover:text-black transition"
+                >
+                  Volver
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        .perspective {
+          perspective: 1200px;
+        }
+        .rotate-y-180 {
+          transform: rotateY(180deg);
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+        .transform-style-preserve-3d {
+          transform-style: preserve-3d;
+        }
+      `}</style>
     </section>
   );
 };
