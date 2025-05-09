@@ -1,4 +1,4 @@
- import React, { useRef } from 'react';
+import React, { useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 import { motion, useTransform, useScroll } from 'framer-motion';
 
@@ -61,7 +61,7 @@ const About = () => {
               y materiales como perlas Biwa, arcilla de Oaxaca y hasta meteorito, para construir miniestructuras que dialogan con tu propio espacio interior.
             </p>
             <a
-              href="/nuestra-historia"
+              href="#trayectoria"
               className="inline-block border border-white text-white px-5 py-2 rounded-full hover:bg-white hover:text-primary transition-colors duration-300"
             >
               Conoce Nuestra Trayectoria
