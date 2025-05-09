@@ -21,88 +21,107 @@ const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   const y = useTransform(scrollYProgress, [0, 1], ['0%', '40%']);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
 
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: { staggerChildren: 0.2, delayChildren: 0.2 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0 }
+  };
+
   return (
     <section
       id="trayectoria"
       ref={ref}
-      className="relative py-24 px-6 bg-gradient-to-b from-gray-100 to-white overflow-hidden"
+      className="relative py-24 px-6 bg-dark text-light overflow-hidden"
     >
       {/* Fondo animado */}
-      <motion.div className="absolute inset-0 z-0 bg-white" style={{ y, opacity }} />
+      <motion.div className="absolute inset-0 z-0 bg-dark" style={{ y, opacity }} />
 
-      {/* Contenido */}
-      <div ref={sectionRef} className="relative z-10 max-w-4xl mx-auto text-center text-gray-800">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-3xl sm:text-4xl font-semibold mb-8"
-        >
-          Una historia que se construye en capas, como la plata
-        </motion.h2>
-
+      {/* Contenido principal */}
+      <div ref={sectionRef} className="relative z-10 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        
+        {/* Imagen animada */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.2, duration: 0.8 }}
+          initial={{ opacity: 0, x: -50 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          className="rounded-xl overflow-hidden shadow-2xl"
+        >
+          <img
+            src="/images/taller.jpg" // ← Cambia esto a tu imagen real
+            alt="Taller Gi.Do"
+            className="w-full h-auto object-cover"
+          />
+        </motion.div>
+
+        {/* Texto narrativo animado */}
+        <motion.div
+          initial="hidden"
+          animate={inView ? 'visible' : 'hidden'}
+          variants={containerVariants}
           className="space-y-6 text-lg sm:text-xl leading-relaxed"
         >
-          <p>
+          <motion.h2 variants={itemVariants} className="text-3xl sm:text-4xl font-semibold text-white mb-4">
+            Una historia que se construye en capas, como la plata
+          </motion.h2>
+
+          <motion.p variants={itemVariants}>
             Algunos comienzan con una idea.  
             <br />Nosotros comenzamos con una inquietud:  
             <br /><strong>¿Y si la arquitectura pudiera abrazarse?</strong>
-          </p>
+          </motion.p>
 
-          <p>
+          <motion.p variants={itemVariants}>
             Así nació Gi.Do. Como una búsqueda entre disciplinas.  
             Entre los trazos de la ingeniería y los silencios del arte.  
             Entre estructuras que sostienen ciudades… y otras que sostienen memorias.
-          </p>
+          </motion.p>
 
-          <p>
+          <motion.p variants={itemVariants}>
             No vinimos a diseñar joyas decorativas.  
             <strong>Vinimos a levantar micromundos simbólicos.</strong>
-          </p>
+          </motion.p>
 
-          <p>
+          <motion.p variants={itemVariants}>
             Más de 20 años después, seguimos combinando técnicas ancestrales con geometría pura,  
             piedras que nacen del corazón de la Tierra con metales que narran el paso del tiempo.
-          </p>
+          </motion.p>
 
-          <p>
+          <motion.p variants={itemVariants}>
             Cada colección no solo refleja una etapa de Gi.Do.  
             Es también una huella de evolución personal, artística y emocional.
-          </p>
+          </motion.p>
 
-          <p>
+          <motion.p variants={itemVariants}>
             Porque para nosotros, <strong>crear joyería es una forma de habitar el mundo</strong>,  
             desde la precisión, la emoción y la belleza.
-          </p>
-        </motion.div>
+          </motion.p>
 
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-10"
-        >
-          <a
-            href="#colecciones"
-            className="inline-block bg-black text-white font-medium px-6 py-3 rounded-full shadow-lg hover:bg-gray-800 transition-colors duration-300"
-          >
-            Explora Nuestras Colecciones
-          </a>
-        </motion.div>
+          {/* CTA actualizado */}
+          <motion.div variants={itemVariants} className="mt-6">
+            <a
+              href="#colecciones"
+              onClick={onClose}
+              className="inline-block bg-white text-black font-medium px-6 py-3 rounded-full shadow-lg hover:bg-gray-100 transition-colors duration-300"
+            >
+              Explora Nuestras Colecciones
+            </a>
+          </motion.div>
 
-        {/* Botón Volver */}
-        <motion.div className="mt-12">
-          <button
-            onClick={onClose}
-            className="text-sm text-gray-600 hover:text-black underline"
-          >
-            ← Volver al sitio
-          </button>
+          {/* Botón Volver */}
+          <motion.div variants={itemVariants} className="pt-8">
+            <button
+              onClick={onClose}
+              className="text-sm text-gray-300 hover:text-white underline"
+            >
+              ← Volver al sitio
+            </button>
+          </motion.div>
         </motion.div>
       </div>
     </section>
