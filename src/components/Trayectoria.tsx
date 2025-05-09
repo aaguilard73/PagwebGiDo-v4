@@ -10,7 +10,11 @@ const storyCards = [
   "Porque para nosotros, crear joyería es una forma de habitar el mundo, desde la precisión, la emoción y la belleza."
 ];
 
-const Trayectoria = () => {
+interface TrayectoriaProps {
+  onClose: () => void;
+}
+
+const Trayectoria: React.FC<TrayectoriaProps> = ({ onClose }) => {
   const [flipped, setFlipped] = useState(Array(storyCards.length).fill(false));
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isMobile, setIsMobile] = useState(false);
@@ -70,7 +74,7 @@ const Trayectoria = () => {
       </div>
 
       {/* Tarjetas interactivas */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center max-w-6xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 justify-center items-center max-w-6xl mx-auto mb-12">
         {storyCards.map((text, index) => (
           <div key={index} className="relative perspective h-64">
             <div className={`relative w-full h-full transition-transform duration-700 transform-style-preserve-3d ${flipped[index] ? 'rotate-y-180' : ''}`}>
@@ -103,6 +107,16 @@ const Trayectoria = () => {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* Botón volver al sitio */}
+      <div className="text-center mt-10">
+        <button
+          onClick={onClose}
+          className="text-sm text-gray-300 border border-gray-400 px-5 py-2 rounded-full hover:bg-white hover:text-black transition"
+        >
+          Volver al sitio
+        </button>
       </div>
 
       <style jsx>{`
